@@ -27,8 +27,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = [];
-
+	protected $helpers 	= ['cookie', 'date', 'security', 'text'];
 	/**
 	 * Constructor.
 	 *
@@ -36,14 +35,26 @@ class BaseController extends Controller
 	 * @param ResponseInterface $response
 	 * @param LoggerInterface   $logger
 	 */
+
+
+	protected $data 	= [];
+	protected $userModel;
+	protected $commonModel;
 	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
-
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
+		$this->session 		= \Config\Services::session();
+		$this->segment 	  	= \Config\Services::request();
+		$this->db         	= \Config\Database::connect();
+		$this->validation 	= \Config\Services::validation();
+		//$this->encrypter 	= \Config\Services::encrypter();
+		$this->data			= [
+			'segment' => $this->request->uri->getSegment(1)
+		];
 	}
 }
