@@ -40,7 +40,7 @@
                                     <div class="text-center">
                                         <img src="<?= base_url('assets/img/avatars/avatar.jpg') ?>" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
                                     </div>
-                                    <form action="<?= base_url(); ?>" method="POST">
+                                    <form action="<?= base_url('GetLogin'); ?>" method="POST">
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
                                             <input class="form-control form-control-lg" type="email" name="inputEmail" placeholder="Enter your email" />
