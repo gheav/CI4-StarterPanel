@@ -15,7 +15,7 @@ class UserRole extends Migration
 				'unsigned'       => true,
 				'auto_increment' => true,
 			],
-			'role'       => [
+			'role_name'       => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
 			],

@@ -9,10 +9,15 @@ class Users extends Model
 	public function getUser($username = false)
 	{
 		if ($username) {
-			return $this->db->table('users')->where(['username' => $username])->get()->getRowArray();
+			return $this->db->table('users')
+				->join('user_role', 'users.role = user_role.id')
+				->where(['username' => $username])
+				->get()->getRowArray();
 		}
 
-		return $this->db->table('users')->get()->getResultArray();
+		return $this->db->table('users')
+			->join('user_role', 'users.role = user_role.id')
+			->get()->getResultArray();
 	}
 
 	public function getAccessMenu($role)
@@ -20,6 +25,17 @@ class Users extends Model
 		return $this->db->table('user_menu')
 			->join('user_access', 'user_menu.id = user_access.menu_id')
 			->where(['user_access.role_id' => $role])
+			->get()->getResultArray();
+	}
+	public function getUserRole($role = false)
+	{
+		if ($role) {
+			return $this->db->table('user_role')
+				->where(['id' => $role])
+				->get()->getRowArray();
+		}
+
+		return $this->db->table('user_role')
 			->get()->getResultArray();
 	}
 }
