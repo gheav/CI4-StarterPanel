@@ -12,7 +12,8 @@ class UserAccess extends Migration
 			'id'          => [
 				'type'           => 'INT',
 				'constraint'     => 11,
-				'unsigned'       => true
+				'unsigned'       => true,
+				'auto_increment' => true
 			],
 			'role_id'          => [
 				'type'           => 'INT',

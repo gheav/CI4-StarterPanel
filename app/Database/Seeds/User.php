@@ -16,5 +16,8 @@ class User extends Seeder
 			'created_at'    =>  date('Y-md h:i:s')
 		];
 		$this->db->table('users')->insert($data);
+		$this->call('UserAccess');
+		$this->call('UserMenu');
+		$this->call('UserRole');
 	}
 }
