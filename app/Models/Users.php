@@ -27,6 +27,11 @@ class Users extends Model
 			->where(['user_access.role_id' => $role])
 			->get()->getResultArray();
 	}
+	public function getMenu()
+	{
+		return $this->db->table('user_menu')
+			->get()->getResultArray();
+	}
 	public function getUserRole($role = false)
 	{
 		if ($role) {
