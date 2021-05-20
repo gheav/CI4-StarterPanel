@@ -14,21 +14,21 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = development
+CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = 'http://localhost:8080'
+ app.baseURL = 'http://localhost:8080'
 # app.forceGlobalSecureRequests = false
 
-# app.sessionDriver = 'CodeIgniter\Session\Handlers\DatabaseHandler'
-# app.sessionCookieName = 'ci_session'
-# app.sessionSavePath = 'sessions'
-# app.sessionMatchIP = true
-# app.sessionTimeToUpdate = 1440
-# app.sessionRegenerateDestroy = true
+app.sessionDriver               = 'CodeIgniter\Session\Handlers\DatabaseHandler'
+app.sessionCookieName           = 'ci_session'
+app.sessionSavePath             = 'sessions'
+app.sessionMatchIP              = true
+app.sessionTimeToUpdate         = 1440
+app.sessionRegenerateDestroy    = true
 
 # app.cookiePrefix = ''
 # app.cookieDomain = ''
@@ -51,11 +51,11 @@
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
+database.default.hostname = localhost
+database.default.database = adminci4
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
 
 # database.tests.hostname = localhost
 # database.tests.database = ci4
