@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
-//use App\Models\MasterModel;
+use App\Models\Users;
 
 class Welcome extends BaseController
 {
+	protected $userModel;
 	public function __construct()
 	{
-		//$this->commonModel  = new CommonModel();
+		$this->userModel  = new Users();
 	}
 
 	public function index()
@@ -19,16 +20,16 @@ class Welcome extends BaseController
 		if (!$this->validate(['inputEmail'  => 'required'])) {
 			return view('common/login');
 		} else {
-			$userID 		 	= htmlspecialchars($this->request->getVar('inputEmail', FILTER_SANITIZE_STRING));
+			$inputEmail 		= htmlspecialchars($this->request->getVar('inputEmail', FILTER_SANITIZE_STRING));
 			$inputPassword 		= htmlspecialchars($this->request->getVar('inputPassword', FILTER_SANITIZE_STRING));
-			$user 				= true;
-			$userID				= 'test@mail.io';
-			$password			= '$2y$10$fko6ETEpYmcpFTSFPIGzl.7Q34OUvkunAHG0uMORhdkOsVPmX/oDm'; //123456
+			$user 				= $this->userModel->getUser($inputEmail);
 			if ($user) {
+				$password		= $user['password'];
 				$verify = password_verify($inputPassword, $password);
 				if ($verify) {
+					$username			= $user['username'];
 					session()->set([
-						'userID'		=> $userID,
+						'username'		=> $username,
 						'isLoggedIn' 	=> TRUE
 					]);
 					return redirect()->to(base_url('home'));
