@@ -14,4 +14,12 @@ class Users extends Model
 
 		return $this->db->table('users')->get()->getResultArray();
 	}
+
+	public function getAccessMenu($role)
+	{
+		return $this->db->table('user_menu')
+			->join('user_access', 'user_menu.id = user_access.menu_id')
+			->where(['user_access.role_id' => $role])
+			->get()->getResultArray();
+	}
 }

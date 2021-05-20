@@ -2,14 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Models\Users;
+
 
 class Welcome extends BaseController
 {
-	protected $userModel;
 	public function __construct()
 	{
-		$this->userModel  = new Users();
 	}
 
 	public function index()
@@ -27,9 +25,9 @@ class Welcome extends BaseController
 				$password		= $user['password'];
 				$verify = password_verify($inputPassword, $password);
 				if ($verify) {
-					$username			= $user['username'];
 					session()->set([
-						'username'		=> $username,
+						'username'		=> $user['username'],
+						'role'			=> $user['role'],
 						'isLoggedIn' 	=> TRUE
 					]);
 					return redirect()->to(base_url('home'));

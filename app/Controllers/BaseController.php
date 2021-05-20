@@ -6,6 +6,7 @@ use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Models\Users;
 
 /**
  * Class BaseController
@@ -39,7 +40,6 @@ class BaseController extends Controller
 
 	protected $data 	= [];
 	protected $userModel;
-	protected $commonModel;
 	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		// Do Not Edit This Line
@@ -52,9 +52,15 @@ class BaseController extends Controller
 		$this->segment 	  	= \Config\Services::request();
 		$this->db         	= \Config\Database::connect();
 		$this->validation 	= \Config\Services::validation();
-		//$this->encrypter 	= \Config\Services::encrypter();
+		$this->encrypter 	= \Config\Services::encrypter();
+		$this->userModel  	= new Users();
+		$user 				= $this->userModel->getUser(session()->get('username'));
+
 		$this->data			= [
-			'segment' => $this->request->uri->getSegment(1)
+			'segment' 		=> $this->request->uri->getSegment(1),
+			'user' 			=> $user,
+			'userAccess' 	=> $this->userModel->getUser(session()->get('username')),
+			'Menu' 			=> $this->userModel->getAccessMenu(session()->get('role'))
 		];
 	}
 }
