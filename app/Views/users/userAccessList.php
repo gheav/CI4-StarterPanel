@@ -17,15 +17,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($UserAccess as $userAccess) : ?>
+                        <?php foreach ($menu as $menu) : ?>
                             <tr>
-                                <td><?= $userAccess['title']; ?></td>
-                                <td class="d-none d-md-table-cell">/<?= $userAccess['url']; ?></td>
+                                <td><?= $menu['title']; ?></td>
+                                <td class="d-none d-md-table-cell">/<?= $menu['url']; ?></td>
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                        <input class="form-check-input menu_permission" type="checkbox" id="flexCheckDefault" <?= check_menu_access($role['id'], $menu['id']) ?> data-role="<?= $role['id'] ?>" data-menu="<?= $menu['id'] ?>">
                                         <label class="form-check-label" for="flexCheckDefault">
-                                            Access Granted
+                                            <?= (check_menu_access($role['id'], $menu['id']) == 'checked') ? 'Access Granted' : 'Access Not Granted' ?>
                                         </label>
                                     </div>
                                 </td>
@@ -76,4 +76,21 @@
         </div>
     </div>
 </div>
+<script>
+    $('.menu_permission').on('click', function() {
+        const menuId = $(this).data('menu');
+        const roleId = $(this).data('role');
+        $.ajax({
+            url: "<?= base_url('users/changeAccessPermission'); ?>",
+            type: 'post',
+            data: {
+                menuID: menuId,
+                roleID: roleId
+            },
+            success: function() {
+                alert('User Access has been changed !');
+            }
+        });
+    });
+</script>
 <?= $this->endSection(); ?>

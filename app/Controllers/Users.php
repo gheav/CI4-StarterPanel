@@ -27,9 +27,11 @@ class Users extends BaseController
 		}
 		$data = array_merge($this->data, [
 			'title' 		=> 'Users Page',
-			'UserAccess'	=> $this->userModel->getMenu($role),
+			'menu'			=> $this->userModel->getMenu(),
+			'UserAccess'	=> $this->userModel->getAccessMenu($role),
 			'role'			=> $this->userModel->getUserRole($role)
 		]);
+		// dd($data['UserAccess']);
 		return view('users/userAccessList', $data);
 	}
 	public function createRole()
@@ -106,6 +108,16 @@ class Users extends BaseController
 		} else {
 			session()->setFlashdata('notif_error', '<b>Failed to delete user</b> ');
 			return redirect()->to(base_url('users'));
+		}
+	}
+
+	public function changeAccessPermission()
+	{
+		$userAccess = $this->userModel->checkUserAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($userAccess > 0) {
+			$this->userModel->deleteAccessPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		} else {
+			$this->userModel->insertAccessPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		}
 	}
 }
