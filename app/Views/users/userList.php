@@ -143,6 +143,7 @@
         $('#inputFullname').val(fullname);
         $('#inputUsername').val(username);
         $('#inputUsername').attr('readonly', true);
+        $('#inputPassword').attr('required', false);
         $('#inputRole').val(role);
 
     });
