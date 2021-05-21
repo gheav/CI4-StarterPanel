@@ -48,4 +48,12 @@ class Users extends Model
 	{
 		return $this->db->table('user_role')->insert(['role_name' => $dataRole['inputRoleName']]);
 	}
+	public function createMenu($dataMenu)
+	{
+		return $this->db->table('user_menu')->insert([
+			'title'		=> $dataMenu['inputMenuTitle'],
+			'url' 		=> $dataMenu['inputMenuURL'],
+			'icon' 		=> $dataMenu['inputMenuIcon'],
+		]);
+	}
 }

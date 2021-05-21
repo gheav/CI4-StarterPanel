@@ -27,7 +27,8 @@ class Users extends BaseController
 		}
 		$data = array_merge($this->data, [
 			'title' 		=> 'Users Page',
-			'UserAccess'	=> $this->userModel->getMenu($role)
+			'UserAccess'	=> $this->userModel->getMenu($role),
+			'role'			=> $this->userModel->getUserRole($role)
 		]);
 		return view('users/userAccessList', $data);
 	}
@@ -36,6 +37,20 @@ class Users extends BaseController
 		$createRole = $this->userModel->createRole($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		if ($createRole) {
 			session()->setFlashdata('notif_success', '<b>Successfully added role data</b> ');
+			return redirect()->to(base_url('users'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to add role data</b> ');
+			return redirect()->to(base_url('users'));
+		}
+	}
+	public function createMenu()
+	{
+		$createMenu = $this->userModel->createMenu($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($createMenu) {
+			session()->setFlashdata('notif_success', '<b>Successfully added menu data</b> ');
+			return redirect()->to(base_url('users'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to add menu data</b> ');
 			return redirect()->to(base_url('users'));
 		}
 	}

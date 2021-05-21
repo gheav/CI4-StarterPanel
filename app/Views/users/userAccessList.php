@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main'); ?>
 <?= $this->section('content'); ?>
 <div class="container-fluid p-0">
-    <h1 class="h3 mb-3"><strong>Access</strong> Menu </h1>
+    <h1 class="h3 mb-3"><strong><?= $role['role_name']; ?></strong> Access Menu </h1>
     <div class="row">
         <div class="col-12 col-sm-6 col- d-flex">
             <div class="card flex-fill">
@@ -54,18 +54,18 @@
                     </form>
                     <hr>
                     <h5 class="fw-bold text-primary">Create New Menu</h5>
-                    <form action="<?= base_url(); ?>" method="post">
+                    <form action="<?= base_url('users/createMenu'); ?>" method="post">
                         <div class="mb-3">
-                            <label for="inputRoleName" class="form-label">Menu Title</label>
-                            <input type="text" class="form-control" id="inputRoleName" name="inputRoleName">
+                            <label for="inputMenuTitle" class="form-label">Menu Title</label>
+                            <input type="text" class="form-control" id="inputMenuTitle" name="inputMenuTitle">
                         </div>
                         <div class="mb-3">
-                            <label for="inputRoleName" class="form-label">Menu URL</label>
-                            <input type="text" class="form-control" id="inputRoleName" name="inputRoleName">
+                            <label for="inputMenuURL" class="form-label">Menu URL</label>
+                            <input type="text" class="form-control" id="inputMenuURL" name="inputMenuURL">
                         </div>
                         <div class="mb-3">
-                            <label for="inputRoleName" class="form-label">Menu Icon</label>
-                            <input type="text" class="form-control" id="inputRoleName" name="inputRoleName">
+                            <label for="inputMenuIcon" class="form-label">Menu Icon</label>
+                            <input type="text" class="form-control" id="inputMenuIcon" name="inputMenuIcon">
                         </div>
                         <div class="text-end">
                             <button class="btn btn-primary ">Save Menu</button>

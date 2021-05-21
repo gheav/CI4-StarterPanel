@@ -37,6 +37,7 @@ $routes->get('home', 'Home::index');
 
 $routes->get('users/userRoleAccess', 'Users::userRoleAccess');
 $routes->post('users/createRole', 'Users::createRole');
+$routes->post('users/createMenu', 'Users::createMenu');
 
 /*
  * --------------------------------------------------------------------
