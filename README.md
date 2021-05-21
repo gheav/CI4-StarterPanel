@@ -2,7 +2,7 @@
 
 ## Installation & updates
 
-`git clone` or download this source code `composer update` whenever there is a new release of the framework.
+`git clone` or download this source code then run `composer update` whenever there is a new release of the framework.
 
 ## Setup
 
