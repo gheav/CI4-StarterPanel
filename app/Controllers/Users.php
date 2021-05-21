@@ -31,4 +31,12 @@ class Users extends BaseController
 		]);
 		return view('users/userAccessList', $data);
 	}
+	public function createRole()
+	{
+		$createRole = $this->userModel->createRole($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($createRole) {
+			session()->setFlashdata('notif_success', '<b>Successfully added role data</b> ');
+			return redirect()->to(base_url('users'));
+		}
+	}
 }

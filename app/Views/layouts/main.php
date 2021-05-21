@@ -28,6 +28,7 @@
 			<?= $this->include('layouts/header'); ?>
 			<!-- CONTENT -->
 			<main class="content">
+				<?= $this->include('common/alerts'); ?>
 				<?= $this->renderSection('content'); ?>
 			</main>
 			<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->

@@ -43,4 +43,9 @@ class Users extends Model
 		return $this->db->table('user_role')
 			->get()->getResultArray();
 	}
+
+	public function createRole($dataRole)
+	{
+		return $this->db->table('user_role')->insert(['role_name' => $dataRole['inputRoleName']]);
+	}
 }

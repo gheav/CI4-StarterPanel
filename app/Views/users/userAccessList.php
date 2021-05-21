@@ -43,7 +43,7 @@
                 <div class="card-body">
                     <hr>
                     <h5 class="fw-bold text-primary">Create New Role</h5>
-                    <form action="<?= base_url(); ?> " method="post">
+                    <form action="<?= base_url('users/createRole'); ?> " method="post">
                         <div class="mb-3">
                             <label for="inputRoleName" class="form-label">Add Role</label>
                             <input type="text" class="form-control" id="inputRoleName" name="inputRoleName" placeholder="Role Name">
