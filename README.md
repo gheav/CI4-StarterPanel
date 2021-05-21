@@ -6,10 +6,10 @@
 
 ## Setup
 
-Run `db:create` to create a new database schema.
-Copy `env` to `.env` and tailor for your app, specifically the baseURL and any database settings.
-Run `php spark migration` to running database migration
-Run `php db:seed User` to seeding d efault database user
+- Run `db:create` to create a new database schema.
+- Copy `env` to `.env` and tailor for your app, specifically the baseURL and any database settings.
+- Run `php spark migration` to running database migration
+- Run `php db:seed User` to seeding d efault database user
 
 ## Server Requirements
 
