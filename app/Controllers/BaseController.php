@@ -54,12 +54,11 @@ class BaseController extends Controller
 		$this->validation 	= \Config\Services::validation();
 		$this->encrypter 	= \Config\Services::encrypter();
 		$this->userModel  	= new Users();
-		$user 				= $this->userModel->getUser(session()->get('username'));
+		$user 				= $this->userModel->getUser(username: session()->get('username'));
 
 		$this->data			= [
 			'segment' 		=> $this->request->uri->getSegment(1),
 			'user' 			=> $user,
-			'userAccess' 	=> $this->userModel->getUser(session()->get('username')),
 			'Menu' 			=> $this->userModel->getAccessMenu(session()->get('role'))
 		];
 	}

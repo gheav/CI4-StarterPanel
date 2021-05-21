@@ -20,7 +20,7 @@ class Welcome extends BaseController
 		} else {
 			$inputEmail 		= htmlspecialchars($this->request->getVar('inputEmail', FILTER_SANITIZE_STRING));
 			$inputPassword 		= htmlspecialchars($this->request->getVar('inputPassword', FILTER_SANITIZE_STRING));
-			$user 				= $this->userModel->getUser($inputEmail);
+			$user 				= $this->userModel->getUser(username: $inputEmail);
 			if ($user) {
 				$password		= $user['password'];
 				$verify = password_verify($inputPassword, $password);

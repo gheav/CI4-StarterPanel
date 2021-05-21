@@ -6,7 +6,7 @@
         <div class="col-12 col-lg-8 col-xxl-9 d-flex">
             <div class="card flex-fill">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Users List <button class="btn btn-primary float-end">Create New User</button></h5>
+                    <h5 class="card-title mb-0">Users List <button class="btn btn-primary float-end btnAdd" data-bs-toggle="modal" data-bs-target="#formUserModal">Create New User</button></h5>
                 </div>
                 <table class="table table-hover my-0">
                     <thead>
@@ -15,6 +15,7 @@
                             <th class="d-none d-xl-table-cell">Username</th>
                             <th>Role</th>
                             <th>Created at</th>
+                            <th>Updated at</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -25,9 +26,16 @@
                                 <td class="d-none d-md-table-cell"><?= $users['username']; ?></td>
                                 <td><span class="badge bg-success"><?= $users['role_name']; ?></span></td>
                                 <td><?= $users['created_at']; ?></td>
+                                <td><?= $users['updated_at']; ?></td>
                                 <td>
-                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#updateUserModal" data-bs-fullname="<?= $users['fullname']; ?>" data-bs-username="<?= $users['username']; ?>" data-bs-role="<?= $users['role']; ?>">Update</button>
-                                    <button class="btn btn-danger" onclick="return confirm('Are you sure delete <?= $users['username']; ?> ?')">Delete</button>
+                                    <button class="btn btn-info btn-sm btnEdit" data-bs-toggle="modal" data-bs-target="#formUserModal" data-id="<?= $users['userID']; ?>" data-fullname="<?= $users['fullname']; ?>" data-username="<?= $users['username']; ?>" data-role="<?= $users['role']; ?>">Update</button>
+
+                                    <?php if ($users['username'] != session()->get('username')) : ?>
+                                        <form action="<?= base_url('users/deleteUser/' . $users['userID']); ?>" method="post" class="d-inline">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure delete <?= $users['username']; ?> ?')">Delete</button>
+                                        </form>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -60,6 +68,7 @@
                                                 Delete
                                             </button>
                                         </form>
+
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -71,55 +80,70 @@
     </div>
 </div>
 
-<div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="formUserModal" tabindex="-1" aria-labelledby="formUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateUserModalLabel">New message</h5>
+                <h5 class="modal-title" id="formUserModalLabel">Create New User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form action="<?= base_url('users/createUser'); ?>" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="userID" id="userID">
                     <div class="mb-3">
                         <label for="inputFullname" class="col-form-label">Full Name:</label>
-                        <input type="text" class="form-control" id="inputFullname">
+                        <input type="text" class="form-control" name="inputFullname" id="inputFullname" required>
                     </div>
                     <div class="mb-3">
                         <label for="inputUsername" class="col-form-label">Username:</label>
-                        <input type="text" class="form-control" id="inputUsername">
+                        <input type="text" class="form-control" name="inputUsername" id="inputUsername" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" name="inputPassword" id="inputPassword" required>
                     </div>
                     <div class="mb-3">
                         <label for="inputRole" class="col-form-label">Role:</label>
-                        <select name="inputRole" id="inputRole" class="form-control">
+                        <select name="inputRole" id="inputRole" class="form-control" required>
                             <option value="">-- Choose User Role --</option>
-                            <option value="1">Role A</option>
+                            <?php foreach ($UserRole as $userRole) : ?>
+                                <option value="<?= $userRole['id']; ?>"><?= $userRole['role_name']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Send message</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 <script>
-    let updateUserModal = document.getElementById('updateUserModal');
-    updateUserModal.addEventListener('show.bs.modal', function(event) {
-        let button = event.relatedTarget;
-        let fullname = button.getAttribute('data-bs-fullname');
-        let username = button.getAttribute('data-bs-username');
-        let modalTitle = updateUserModal.querySelector('.modal-title');
-        let inputFullname = updateUserModal.querySelector('#inputFullname');
-        let inputUsername = updateUserModal.querySelector('#inputUsername');
-        let inputRole = updateUserModal.querySelector('#inputRole');
+    $(".btnAdd").click(function() {
+        $('#formUserModalLabel').html('Create New User');
+        $('.modal-footer button[type=submit]').html('Save User');
+        $('#userID').val('');
+        $('#inputFullname').val('');
+        $('#inputUsername').val('');
+        $('#inputRole').val('');
+    });
+    $(".btnEdit").click(function() {
+        const userId = $(this).data('id');
+        const fullname = $(this).data('fullname');
+        const username = $(this).data('username');
+        const role = $(this).data('role');
 
-        modalTitle.textContent = 'Update data  ' + fullname;
-        inputFullname.value = fullname;
-        inputUsername.value = username;
-        inputRole.value = role;
+        $('#modalTitle').html('form Data User');
+        $('.modal-footer button[type=submit]').html('Update User');
+        $('.modal-content form').attr('action', '<?= base_url('users/updateUser') ?>');
+        $('#userID').val(userId);
+        $('#inputFullname').val(fullname);
+        $('#inputUsername').val(username);
+        $('#inputUsername').attr('readonly', true);
+        $('#inputRole').val(role);
 
     });
 </script>

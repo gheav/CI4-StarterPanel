@@ -6,18 +6,26 @@ use CodeIgniter\Model;
 
 class Users extends Model
 {
-	public function getUser($username = false)
+	public function getUser($username = false, $userID = false)
 	{
 		if ($username) {
 			return $this->db->table('users')
+				->select('*,users.id AS userID,user_role.id AS role_id')
 				->join('user_role', 'users.role = user_role.id')
 				->where(['username' => $username])
 				->get()->getRowArray();
+		} elseif ($userID) {
+			return $this->db->table('users')
+				->select('*,users.id AS userID,user_role.id AS role_id')
+				->join('user_role', 'users.role = user_role.id')
+				->where(['users.id' => $userID])
+				->get()->getRowArray();
+		} else {
+			return $this->db->table('users')
+				->select('*,users.id AS userID,user_role.id AS role_id')
+				->join('user_role', 'users.role = user_role.id')
+				->get()->getResultArray();
 		}
-
-		return $this->db->table('users')
-			->join('user_role', 'users.role = user_role.id')
-			->get()->getResultArray();
 	}
 
 	public function getAccessMenu($role)
@@ -59,5 +67,34 @@ class Users extends Model
 			'url' 		=> $dataMenu['inputMenuURL'],
 			'icon' 		=> $dataMenu['inputMenuIcon'],
 		]);
+	}
+	public function createUser($dataUser)
+	{
+		return $this->db->table('users')->insert([
+			'fullname'		=> $dataUser['inputFullname'],
+			'username' 		=> $dataUser['inputUsername'],
+			'password' 		=> password_hash($dataUser['inputPassword'], PASSWORD_DEFAULT),
+			'role' 			=> $dataUser['inputRole'],
+			'created_at'    =>  date('Y-m-d h:i:s')
+		]);
+	}
+	public function updateUser($dataUser)
+	{
+		if ($dataUser['inputPassword']) {
+			$password = password_hash($dataUser['inputPassword'], PASSWORD_DEFAULT);
+		} else {
+			$user 		= $this->getUser(userID: $dataUser['userID']);
+			$password 	= $user['password'];
+		}
+		return $this->db->table('users')->update([
+			'fullname'		=> $dataUser['inputFullname'],
+			'username' 		=> $dataUser['inputUsername'],
+			'password' 		=> $password,
+			'role' 			=> $dataUser['inputRole'],
+		], ['id' => $dataUser['userID']]);
+	}
+	public function deleteUser($userID)
+	{
+		return $this->db->table('users')->delete(['id' => $userID]);
 	}
 }
