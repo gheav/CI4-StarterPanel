@@ -45,7 +45,7 @@
                         <thead>
                             <tr>
                                 <th>Role</th>
-                                <th></th>
+                                <th colspan="2"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,6 +53,14 @@
                                 <tr>
                                     <td><?= $userRole['role_name']; ?></td>
                                     <td><a href="<?= base_url('users/userRoleAccess?role=' . $userRole['id']); ?>"> <span class="badge bg-primary">Access Menu</span></a></td>
+                                    <td>
+                                        <form action="<?= base_url('users/deleteRole/' . $userRole['id']); ?>" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

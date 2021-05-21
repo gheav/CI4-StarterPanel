@@ -43,6 +43,17 @@ class Users extends BaseController
 			return redirect()->to(base_url('users'));
 		}
 	}
+	public function deleteRole($role)
+	{
+		$deleteRole = $this->userModel->deleteRole($role);
+		if ($deleteRole) {
+			session()->setFlashdata('notif_success', '<b>Successfully added menu data</b> ');
+			return redirect()->to(base_url('users'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to add menu data</b> ');
+			return redirect()->to(base_url('users'));
+		}
+	}
 	public function createMenu()
 	{
 		$createMenu = $this->userModel->createMenu($this->request->getPost(null, FILTER_SANITIZE_STRING));
