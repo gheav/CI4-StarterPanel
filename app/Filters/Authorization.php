@@ -15,9 +15,7 @@ class Authorization implements FilterInterface
 		$this->userModel  	= new Users();
 		$segment 			= $request->uri->getSegment(1);
 
-		if (session()->get('isLoggedIn') != TRUE) :
-			return redirect()->to(base_url('/'));
-		elseif ($segment != 'blocked') :
+		if ($segment) :
 			$menu 		= $this->userModel->getMenuByUrl($segment);
 			if (!$menu) :
 				//not found

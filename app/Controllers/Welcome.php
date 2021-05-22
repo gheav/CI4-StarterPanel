@@ -46,4 +46,12 @@ class Welcome extends BaseController
 		$this->session->destroy();
 		return redirect()->to(base_url('/'));
 	}
+
+	public function forbiddenPage()
+	{
+		$data = array_merge($this->data, [
+			'title'         => 'Forbidden Page'
+		]);
+		return view('common/forbidden', $data);
+	}
 }
