@@ -23,8 +23,8 @@
                                 <td class="d-none d-md-table-cell">/<?= $menu['url']; ?></td>
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input menu_permission" type="checkbox" id="flexCheckDefault" <?= check_menu_access($role['id'], $menu['id']) ?> data-role="<?= $role['id'] ?>" data-menu="<?= $menu['id'] ?>">
-                                        <label class="form-check-label" for="flexCheckDefault">
+                                        <input class="form-check-input menu_permission" type="checkbox" <?= check_menu_access($role['id'], $menu['id']) ?> data-role="<?= $role['id'] ?>" data-menu="<?= $menu['id'] ?>">
+                                        <label class="form-check-label">
                                             <?= (check_menu_access($role['id'], $menu['id']) == 'checked') ? 'Access Granted' : 'Access Not Granted' ?>
                                         </label>
                                     </div>
@@ -88,7 +88,8 @@
                 roleID: roleId
             },
             success: function() {
-                alert('User Access has been changed !');
+                // alert('User Access has been changed !');
+                location.reload();
             }
         });
     });
