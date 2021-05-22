@@ -18,11 +18,6 @@ class UserMenu extends Seeder
 				'title' 		=> 'Users',
 				'url'    		=> 'users',
 				'icon'    		=> 'user'
-			],
-			[
-				'title' 		=> 'Forbidden Page',
-				'url'    		=> 'blocked',
-				'icon'    		=> 'close'
 			]
 		];
 		$this->db->table('user_menu')->insertBatch($data);

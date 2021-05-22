@@ -9,7 +9,7 @@ class User extends Seeder
 	public function run()
 	{
 		$data = [
-			'fullname' 		=> 'Tester',
+			'fullname' 		=> 'Developer Tester',
 			'username'    	=> 'tester@mail.io',
 			'password'    	=>  password_hash('123456', PASSWORD_DEFAULT),
 			'role'    		=>  1,
