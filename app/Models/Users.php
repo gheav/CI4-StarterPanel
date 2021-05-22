@@ -68,6 +68,12 @@ class Users extends Model
 			'icon' 		=> $dataMenu['inputMenuIcon'],
 		]);
 	}
+	public function getMenuByUrl($menuUrl)
+	{
+		return $this->db->table('user_menu')
+			->where(['url' => $menuUrl])
+			->get()->getRowArray();
+	}
 	public function createUser($dataUser)
 	{
 		return $this->db->table('users')->insert([
