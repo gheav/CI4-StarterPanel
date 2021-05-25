@@ -9,7 +9,7 @@
 - Run `db:create` to create a new database schema.
 - Copy `env` to `.env` and tailor for your app, specifically the baseURL and any database settings.
 - Run `php spark migrate` to running database migration
-- Run `php db:seed User` to seeding default database user
+- Run `php spark db:seed User` to seeding default database user
 - Run `php spark serve` to launching the CodeIgniter PHP-Development Server
 
 ## Server Requirements
