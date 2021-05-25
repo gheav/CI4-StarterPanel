@@ -10,11 +10,13 @@ class UserMenu extends Seeder
 	{
 		$data = [
 			[
+				'menu_category' => 1,
 				'title' 		=> 'Dashboard',
 				'url'    		=> 'home',
 				'icon'    		=> 'home'
 			],
 			[
+				'menu_category' => 2,
 				'title' 		=> 'Users',
 				'url'    		=> 'users',
 				'icon'    		=> 'user'
