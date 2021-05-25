@@ -12,7 +12,7 @@ class UserMenu extends Seeder
 			[
 				'title' 		=> 'Dashboard',
 				'url'    		=> 'home',
-				'icon'    		=> 'sliders'
+				'icon'    		=> 'home'
 			],
 			[
 				'title' 		=> 'Users',

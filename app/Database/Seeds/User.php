@@ -18,6 +18,7 @@ class User extends Seeder
 		$this->db->table('users')->insert($data);
 		$this->call('UserAccess');
 		$this->call('UserMenu');
+		$this->call('UserMenuCategory');
 		$this->call('UserRole');
 	}
 }
