@@ -70,6 +70,17 @@ class Users extends BaseController
 			return redirect()->to(base_url('users'));
 		}
 	}
+	public function createMenuCategory()
+	{
+		$createMenuCategory = $this->userModel->createMenuCategory($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($createMenuCategory) {
+			session()->setFlashdata('notif_success', '<b>Successfully added menu category</b>');
+			return redirect()->to(base_url('users'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to add menu category</b>');
+			return redirect()->to(base_url('users'));
+		}
+	}
 	public function createUser()
 	{
 		if (!$this->validate(['inputUsername' => ['rules' => 'is_unique[users.username]']])) {

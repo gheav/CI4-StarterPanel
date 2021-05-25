@@ -75,6 +75,12 @@ class Users extends Model
 			'icon' 		=> $dataMenu['inputMenuIcon'],
 		]);
 	}
+	public function createMenuCategory($dataMenuCategory)
+	{
+		return $this->db->table('user_menu_category')->insert([
+			'menu_category'		=> $dataMenuCategory['inputMenuCategory']
+		]);
+	}
 	public function getMenuByUrl($menuUrl)
 	{
 		return $this->db->table('user_menu')
