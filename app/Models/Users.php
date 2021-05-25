@@ -47,6 +47,11 @@ class Users extends Model
 		return $this->db->table('user_menu')
 			->get()->getResultArray();
 	}
+	public function getMenuCategory()
+	{
+		return $this->db->table('user_menu_category')
+			->get()->getResultArray();
+	}
 	public function getUserRole($role = false)
 	{
 		if ($role) {
@@ -70,9 +75,10 @@ class Users extends Model
 	public function createMenu($dataMenu)
 	{
 		return $this->db->table('user_menu')->insert([
-			'title'		=> $dataMenu['inputMenuTitle'],
-			'url' 		=> $dataMenu['inputMenuURL'],
-			'icon' 		=> $dataMenu['inputMenuIcon'],
+			'menu_category'	=> $dataMenu['inputMenuCategory'],
+			'title'			=> $dataMenu['inputMenuTitle'],
+			'url' 			=> $dataMenu['inputMenuURL'],
+			'icon' 			=> $dataMenu['inputMenuIcon'],
 		]);
 	}
 	public function createMenuCategory($dataMenuCategory)
@@ -118,14 +124,36 @@ class Users extends Model
 	}
 	public function checkUserAccess($dataAccess)
 	{
-		return  $this->db->table('user_access')->where(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']])->countAllResults();
+		return  $this->db->table('user_access')
+			->where([
+				'role_id' => $dataAccess['roleID'],
+				'menu_id' => $dataAccess['menuID']
+			])
+			->countAllResults();
 	}
-	public function insertAccessPermission($dataAccess)
+	public function checkUserMenuCategoryAccess($dataAccess)
+	{
+		return  $this->db->table('user_access')
+			->where([
+				'role_id' => $dataAccess['roleID'],
+				'menu_category_id' => $dataAccess['menuCategoryID']
+			])
+			->countAllResults();
+	}
+	public function insertMenuPermission($dataAccess)
 	{
 		return $this->db->table('user_access')->insert(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']]);
 	}
-	public function deleteAccessPermission($dataAccess)
+	public function deleteMenuPermission($dataAccess)
 	{
 		return $this->db->table('user_access')->delete(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']]);
+	}
+	public function insertMenuCategoryPermission($dataAccess)
+	{
+		return $this->db->table('user_access')->insert(['role_id' => $dataAccess['roleID'], 'menu_category_id' => $dataAccess['menuCategoryID']]);
+	}
+	public function deleteMenuCategoryPermission($dataAccess)
+	{
+		return $this->db->table('user_access')->delete(['role_id' => $dataAccess['roleID'], 'menu_category_id' => $dataAccess['menuCategoryID']]);
 	}
 }

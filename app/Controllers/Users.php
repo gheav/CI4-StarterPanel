@@ -27,11 +27,11 @@ class Users extends BaseController
 		}
 		$data = array_merge($this->data, [
 			'title' 		=> 'Users Page',
-			'menu'			=> $this->userModel->getMenu(),
+			'Menus'			=> $this->userModel->getMenu(),
+			'MenuCategories'	=> $this->userModel->getMenuCategory(),
 			'UserAccess'	=> $this->userModel->getAccessMenu($role),
 			'role'			=> $this->userModel->getUserRole($role)
 		]);
-		// dd($data['UserAccess']);
 		return view('users/userAccessList', $data);
 	}
 	public function createRole()
@@ -122,13 +122,22 @@ class Users extends BaseController
 		}
 	}
 
-	public function changeAccessPermission()
+	public function changeMenuPermission()
 	{
 		$userAccess = $this->userModel->checkUserAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		if ($userAccess > 0) {
-			$this->userModel->deleteAccessPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->deleteMenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		} else {
-			$this->userModel->insertAccessPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->insertMenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		}
+	}
+	public function changeMenuCategoryPermission()
+	{
+		$userAccess = $this->userModel->checkUserMenuCategoryAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($userAccess > 0) {
+			$this->userModel->deleteMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		} else {
+			$this->userModel->insertMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		}
 	}
 }

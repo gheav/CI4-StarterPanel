@@ -44,7 +44,8 @@ $routes->delete('users/deleteRole', 'Users::deleteRole');
 $routes->post('users/createUser', 'Users::createUser');
 $routes->post('users/updateUser', 'Users::updateUser');
 $routes->delete('users/deleteUser', 'Users::deleteUser');
-$routes->post('users/changeAccessPermission', 'Users::changeAccessPermission');
+$routes->post('users/changeMenuPermission', 'Users::changeMenuPermission');
+$routes->post('users/changeMenuCategoryPermission', 'Users::changeMenuCategoryPermission');
 
 /*
  * --------------------------------------------------------------------
