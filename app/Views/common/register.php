@@ -30,7 +30,7 @@
                         <div class="text-center mt-4">
                             <h1 class="h2">Welcome to Admin CodeIgniter 4</h1>
                             <p class="lead">
-                                Sign in to your account to continue
+                                Register New Account
                             </p>
                         </div>
                         <?= $this->include('common/alerts'); ?>
@@ -48,30 +48,36 @@
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
                                             <input class="form-control form-control-lg" type="password" name="inputPassword" placeholder="Enter your password" />
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Repeat Password</label>
+                                            <input class="form-control form-control-lg" type="password" name="inputPassword" placeholder="Repeat your password" />
                                             <small>
-                                                <a href="pages-reset-password.html">Forgot password?</a> <a href="<?= base_url('register') ?>">Don't have an account? Register</a>
+                                                <a href="<?= base_url() ?>">Have an account? Login</a>
                                             </small>
                                         </div>
-                                        <div>
-                                            <label class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
-                                                <span class="form-check-label">
-                                                    Remember me next time
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="text-center mt-3">
-                                            <button type="submit" class="btn btn-lg btn-primary">Sign in</button>
-                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
-                                        </div>
-                                    </form>
+                                </div>
+                                <div class="ms-4">
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
+                                        <span class="form-check-label">
+                                            I Agree to the terms and conditions
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button type="submit" class="btn btn-lg btn-primary">Register</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
-
                     </div>
                 </div>
+
             </div>
+        </div>
+        </div>
         </div>
     </main>
 </body>

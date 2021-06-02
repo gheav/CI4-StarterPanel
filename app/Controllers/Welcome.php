@@ -54,4 +54,8 @@ class Welcome extends BaseController
 		]);
 		return view('common/forbidden', $data);
 	}
+	public function register()
+	{
+		return view('common/register');
+	}
 }

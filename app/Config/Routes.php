@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Welcome::index');
 $routes->post('GetLogin', 'Welcome::index');
 $routes->get('blocked', 'Welcome::forbiddenPage');
+$routes->get('register', 'Welcome::register');
 $routes->get('home', 'Home::index');
 
 $routes->get('users/userRoleAccess', 'Users::userRoleAccess');

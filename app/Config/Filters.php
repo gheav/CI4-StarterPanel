@@ -33,8 +33,8 @@ class Filters extends BaseConfig
 		'before' => [
 			// 'honeypot',
 			// 'csrf',
-			'isLoggedIn'	=> ['except' => ['/', 'getLogin']],
-			'isGranted' 	=> ['except' => ['/', 'getLogin', 'blocked', 'home', 'Welcome/*']],
+			'isLoggedIn'	=> ['except' => ['/', 'getLogin', 'register']],
+			'isGranted' 	=> ['except' => ['/', 'getLogin', 'register', 'blocked', 'home', 'Welcome/*']],
 		],
 		'after'  => [
 			'toolbar',
