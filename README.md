@@ -10,6 +10,7 @@
 - Copy `env` to `.env` and tailor for your app, specifically the baseURL and any database settings.
 - Run `php spark migrate` to running database migration
 - Run `php spark db:seed User` to seeding default database user
+- Run `php spark key:generate` to create encrypter key
 - Run `php spark serve` to launching the CodeIgniter PHP-Development Server
 
 ## Server Requirements
