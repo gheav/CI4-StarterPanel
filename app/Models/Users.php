@@ -100,7 +100,7 @@ class Users extends Model
 			'username' 		=> $dataUser['inputUsername'],
 			'password' 		=> password_hash($dataUser['inputPassword'], PASSWORD_DEFAULT),
 			'role' 			=> $dataUser['inputRole'],
-			'created_at'    =>  date('Y-m-d h:i:s')
+			'created_at'    => date('Y-m-d h:i:s')
 		]);
 	}
 	public function updateUser($dataUser)

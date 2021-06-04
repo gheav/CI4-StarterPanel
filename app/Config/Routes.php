@@ -35,6 +35,7 @@ $routes->get('/', 'Welcome::index');
 $routes->post('GetLogin', 'Welcome::index');
 $routes->get('blocked', 'Welcome::forbiddenPage');
 $routes->get('register', 'Welcome::register');
+$routes->post('register', 'Welcome::registration');
 $routes->get('home', 'Home::index');
 
 $routes->get('users/userRoleAccess', 'Users::userRoleAccess');

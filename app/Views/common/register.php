@@ -35,41 +35,45 @@
                         </div>
                         <?= $this->include('common/alerts'); ?>
                         <div class="card">
-                            <div class="card-body">
-                                <div class="m-sm-4">
-                                    <div class="text-center">
-                                        <img src="<?= base_url('assets/img/avatars/avatar.jpg') ?>" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
-                                    </div>
-                                    <form action="<?= base_url('GetLogin'); ?>" method="POST">
+                            <form action="<?= base_url('register'); ?>" method="POST">
+                                <div class="card-body">
+                                    <div class="m-sm-4">
+                                        <div class="text-center">
+                                            <img src="<?= base_url('assets/img/avatars/avatar.jpg') ?>" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Full Name</label>
+                                            <input class="form-control form-control-lg" type="text" name="inputFullname" placeholder="Enter your name" required />
+                                        </div>
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
-                                            <input class="form-control form-control-lg" type="email" name="inputEmail" placeholder="Enter your email" />
+                                            <input class="form-control form-control-lg" type="email" name="inputEmail" placeholder="Enter your email" required />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
-                                            <input class="form-control form-control-lg" type="password" name="inputPassword" placeholder="Enter your password" />
+                                            <input class="form-control form-control-lg" type="password" name="inputPassword" placeholder="Enter your password" required />
 
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Repeat Password</label>
-                                            <input class="form-control form-control-lg" type="password" name="inputPassword" placeholder="Repeat your password" />
+                                            <input class="form-control form-control-lg" type="password" name="inputPassword2" placeholder="Repeat your password" required />
                                             <small>
                                                 <a href="<?= base_url() ?>">Have an account? Login</a>
                                             </small>
                                         </div>
+                                    </div>
+                                    <div class="ms-4">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
+                                            <span class="form-check-label">
+                                                I Agree to the terms and conditions
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-lg btn-primary">Register</button>
+                                    </div>
                                 </div>
-                                <div class="ms-4">
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
-                                        <span class="form-check-label">
-                                            I Agree to the terms and conditions
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="text-center mt-3">
-                                    <button type="submit" class="btn btn-lg btn-primary">Register</button>
-                                </div>
-                            </div>
                             </form>
                         </div>
                     </div>
