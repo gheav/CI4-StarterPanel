@@ -10,7 +10,7 @@ class UserRole extends Seeder
 	{
 		$data = [
 			'id'    		=>  0,
-			'role'    		=>  'Developer'
+			'role_name'     =>  'Developer'
 		];
 		$this->db->table('user_role')->insert($data);
 	}
