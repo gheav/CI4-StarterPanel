@@ -1,11 +1,11 @@
 {
-	"name": "codeigniter4/appstarter",
+	"name": "codeigniter4/adminstarter",
 	"type": "project",
-	"description": "CodeIgniter4 starter app",
-	"homepage": "https://codeigniter.com",
+	"description": "CodeIgniter4 admin panel starter app",
+	"homepage": "https://gheavshare.com",
 	"license": "MIT",
 	"require": {
-		"php": "^7.3||^8.0",
+		"php": "^8.0",
 		"codeigniter4/framework": "^4"
 	},
 	"require-dev": {
@@ -32,10 +32,6 @@
 	},
 	"scripts": {
 		"test": "phpunit"
-	},
-	"support": {
-		"forum": "http://forum.codeigniter.com/",
-		"source": "https://github.com/codeigniter4/CodeIgniter4",
-		"slack": "https://codeigniterchat.slack.com"
 	}
+
 }

@@ -15,6 +15,14 @@ class UserMenu extends Migration
 				'unsigned'       => true,
 				'auto_increment' => true,
 			],
+<<<<<<< HEAD
+			'menu_category'      => [
+				'type'           => 'INT',
+				'constraint'     => 11,
+				'unsigned'       => true
+			],
+=======
+>>>>>>> master
 			'title'       => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',

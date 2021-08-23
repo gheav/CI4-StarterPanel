@@ -10,6 +10,18 @@ class UserMenu extends Seeder
 	{
 		$data = [
 			[
+<<<<<<< HEAD
+				'menu_category' => 1,
+				'title' 		=> 'Dashboard',
+				'url'    		=> 'home',
+				'icon'    		=> 'home'
+			],
+			[
+				'menu_category' => 2,
+				'title' 		=> 'Users',
+				'url'    		=> 'users',
+				'icon'    		=> 'user'
+=======
 				'title' 		=> 'Dashboard',
 				'url'    		=> 'home',
 				'icon'    		=>  'sliders'
@@ -18,6 +30,7 @@ class UserMenu extends Seeder
 				'title' 		=> 'Users',
 				'url'    		=> 'users',
 				'icon'    		=>  'user'
+>>>>>>> master
 			]
 		];
 		$this->db->table('user_menu')->insertBatch($data);

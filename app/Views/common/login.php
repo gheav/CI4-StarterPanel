@@ -49,7 +49,11 @@
                                             <label class="form-label">Password</label>
                                             <input class="form-control form-control-lg" type="password" name="inputPassword" placeholder="Enter your password" />
                                             <small>
+<<<<<<< HEAD
+                                                <a href="pages-reset-password.html">Forgot password?</a> <a href="<?= base_url('register') ?>">Don't have an account? Register</a>
+=======
                                                 <a href="pages-reset-password.html">Forgot password?</a>
+>>>>>>> master
                                             </small>
                                         </div>
                                         <div>
