@@ -19,8 +19,12 @@ class Filters extends BaseConfig
 		'csrf'    		=> CSRF::class,
 		'toolbar' 		=> DebugToolbar::class,
 		'honeypot'		=> Honeypot::class,
+<<<<<<< HEAD
 		'isLoggedIn' 	=> \App\Filters\Authentication::class,
 		'isGranted' 	=> \App\Filters\Authorization::class,
+=======
+		'isLoggedIn' 	=> \App\Filters\Authorization::class,
+>>>>>>> master
 	];
 
 	/**
@@ -33,8 +37,12 @@ class Filters extends BaseConfig
 		'before' => [
 			// 'honeypot',
 			// 'csrf',
+<<<<<<< HEAD
 			'isLoggedIn'	=> ['except' => ['/', 'getLogin', 'register']],
 			'isGranted' 	=> ['except' => ['/', 'getLogin', 'register', 'blocked', 'home', 'Welcome/*']],
+=======
+			'isLoggedIn' => ['except' => ['/', 'getLogin']],
+>>>>>>> master
 		],
 		'after'  => [
 			'toolbar',

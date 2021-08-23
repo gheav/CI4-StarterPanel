@@ -33,21 +33,31 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Welcome::index');
 $routes->post('GetLogin', 'Welcome::index');
+<<<<<<< HEAD
 $routes->get('blocked', 'Welcome::forbiddenPage');
 $routes->get('register', 'Welcome::register');
 $routes->post('register', 'Welcome::registration');
+=======
+>>>>>>> master
 $routes->get('home', 'Home::index');
 
 $routes->get('users/userRoleAccess', 'Users::userRoleAccess');
 $routes->post('users/createRole', 'Users::createRole');
 $routes->post('users/createMenu', 'Users::createMenu');
+<<<<<<< HEAD
 $routes->post('users/createMenuCategory', 'Users::createMenuCategory');
+=======
+>>>>>>> master
 $routes->delete('users/deleteRole', 'Users::deleteRole');
 $routes->post('users/createUser', 'Users::createUser');
 $routes->post('users/updateUser', 'Users::updateUser');
 $routes->delete('users/deleteUser', 'Users::deleteUser');
+<<<<<<< HEAD
 $routes->post('users/changeMenuPermission', 'Users::changeMenuPermission');
 $routes->post('users/changeMenuCategoryPermission', 'Users::changeMenuCategoryPermission');
+=======
+$routes->post('users/changeAccessPermission', 'Users::changeAccessPermission');
+>>>>>>> master
 
 /*
  * --------------------------------------------------------------------

@@ -8,6 +8,7 @@
 
 - Run `db:create` to create a new database schema.
 - Copy `env` to `.env` and tailor for your app, specifically the baseURL and any database settings.
+<<<<<<< HEAD
 - Run `php spark migrate` to running database migration
 - Run `php spark db:seed User` to seeding default database user
 - Run `php spark key:generate` to create encrypter key
@@ -16,6 +17,14 @@
 ## Server Requirements
 
 PHP version 8.0 or higher is required, with the following extensions installed:
+=======
+- Run `php spark migration` to running database migration
+- Run `php db:seed User` to seeding default database user
+
+## Server Requirements
+
+PHP version 7.3 or higher is required, with the following extensions installed:
+>>>>>>> master
 
 - [intl](http://php.net/manual/en/intl.requirements.php)
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
