@@ -15,3 +15,11 @@ function check_menu_access($role_id, $menu_id)
         return "checked";
     }
 }
+function check_submenu_access($role_id, $submenu_id)
+{
+    $db                 = \Config\Database::connect();
+    $accessMenu         = $db->table('user_access')->where(['role_id' => $role_id, 'submenu_id' => $submenu_id])->countAllResults();
+    if ($accessMenu > 0) {
+        return "checked";
+    }
+}

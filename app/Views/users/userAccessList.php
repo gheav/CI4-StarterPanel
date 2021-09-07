@@ -44,6 +44,25 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <?php foreach ($Submenus as $subMenu) :  if ($menu['id'] == $subMenu['menu']) : ?>
+                                                    <tr>
+                                                        <td>
+                                                            <p class="ms-4"> <?= $subMenu['title']; ?></p>
+                                                        </td>
+                                                        <td class="d-none d-md-table-cell">
+                                                            <p class="ms-4">/<?= $subMenu['url']; ?></p>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-check ms-4">
+                                                                <input class="form-check-input submenu_permission" type="checkbox" <?= check_submenu_access($role['id'], $subMenu['id']) ?> data-role="<?= $role['id'] ?>" data-submenu="<?= $subMenu['id'] ?>">
+                                                                <label class="form-check-label">
+                                                                    <?= (check_submenu_access($role['id'], $subMenu['id']) == 'checked') ? 'Access Granted' : 'Access Not Granted' ?>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                            <?php endif;
+                                            endforeach; ?>
                                     <?php endif;
                                     endforeach; ?>
                                 <?php endforeach; ?>
@@ -134,12 +153,12 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="inputMenuTitle" class="form-label">Submenu Title</label>
-                                        <input type="text" class="form-control" id="inputMenuTitle" name="inputMenuTitle">
+                                        <label for="inputSubmenuTitle" class="form-label">Submenu Title</label>
+                                        <input type="text" class="form-control" id="inputSubmenuTitle" name="inputSubmenuTitle">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="inputMenuURL" class="form-label">Submenu URL</label>
-                                        <input type="text" class="form-control" id="inputMenuURL" name="inputMenuURL">
+                                        <label for="inputSubmenuURL" class="form-label">Submenu URL</label>
+                                        <input type="text" class="form-control" id="inputSubmenuURL" name="inputSubmenuURL">
                                     </div>
                                     <div class="text-end">
                                         <button class="btn btn-primary ">Save Submenu</button>
@@ -178,6 +197,22 @@
             type: 'post',
             data: {
                 menuID: menuId,
+                roleID: roleId
+            },
+            success: function() {
+                // alert('User Access has been changed !');
+                location.reload();
+            }
+        });
+    });
+    $('.submenu_permission').on('click', function() {
+        const submenuID = $(this).data('submenu');
+        const roleId = $(this).data('role');
+        $.ajax({
+            url: "<?= base_url('users/changeSubMenuPermission'); ?>",
+            type: 'post',
+            data: {
+                submenuID: submenuID,
                 roleID: roleId
             },
             success: function() {

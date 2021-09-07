@@ -26,11 +26,12 @@ class Users extends BaseController
 			return redirect()->to(base_url('users'));
 		}
 		$data = array_merge($this->data, [
-			'title' 		=> 'Users Page',
-			'Menus'			=> $this->userModel->getMenu(),
+			'title' 			=> 'Users Page',
 			'MenuCategories'	=> $this->userModel->getMenuCategory(),
-			'UserAccess'	=> $this->userModel->getAccessMenu($role),
-			'role'			=> $this->userModel->getUserRole($role)
+			'Menus'				=> $this->userModel->getMenu(),
+			'Submenus'			=> $this->userModel->getSubmenu(),
+			'UserAccess'		=> $this->userModel->getAccessMenu($role),
+			'role'				=> $this->userModel->getUserRole($role)
 		]);
 		return view('users/userAccessList', $data);
 	}
@@ -70,28 +71,41 @@ class Users extends BaseController
 			return redirect()->to(base_url('users'));
 		}
 	}
-	public function createMenu()
-	{
-		$createMenu = $this->userModel->createMenu($this->request->getPost(null, FILTER_SANITIZE_STRING));
-		if ($createMenu) {
-			session()->setFlashdata('notif_success', '<b>Successfully added menu data</b> ');
-			return redirect()->to(base_url('users'));
-		} else {
-			session()->setFlashdata('notif_error', '<b>Failed to add menu data</b> ');
-			return redirect()->to(base_url('users'));
-		}
-	}
 	public function createMenuCategory()
 	{
 		$createMenuCategory = $this->userModel->createMenuCategory($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		if ($createMenuCategory) {
-			session()->setFlashdata('notif_success', '<b>Successfully added menu category</b>');
+			session()->setFlashdata('notif_success', '<b>Successfully create menu category</b>');
 			return redirect()->to(base_url('users'));
 		} else {
-			session()->setFlashdata('notif_error', '<b>Failed to add menu category</b>');
+			session()->setFlashdata('notif_error', '<b>Failed to create menu category</b>');
 			return redirect()->to(base_url('users'));
 		}
 	}
+
+	public function createMenu()
+	{
+		$createMenu = $this->userModel->createMenu($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($createMenu) {
+			session()->setFlashdata('notif_success', '<b>Successfully create menu </b> ');
+			return redirect()->to(base_url('users'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to create menu </b> ');
+			return redirect()->to(base_url('users'));
+		}
+	}
+	public function createSubMenu()
+	{
+		$createSubMenu = $this->userModel->createSubMenu($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($createSubMenu) {
+			session()->setFlashdata('notif_success', '<b>Successfully create submenu </b> ');
+			return redirect()->to(base_url('users'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to create submenu </b> ');
+			return redirect()->to(base_url('users'));
+		}
+	}
+
 	public function createUser()
 	{
 		if (!$this->validate(['inputUsername' => ['rules' => 'is_unique[users.username]']])) {
@@ -133,6 +147,16 @@ class Users extends BaseController
 		}
 	}
 
+	public function changeMenuCategoryPermission()
+	{
+		$userAccess = $this->userModel->checkUserMenuCategoryAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($userAccess > 0) {
+			$this->userModel->deleteMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		} else {
+			$this->userModel->insertMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		}
+	}
+
 	public function changeMenuPermission()
 	{
 		$userAccess = $this->userModel->checkUserAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
@@ -142,13 +166,14 @@ class Users extends BaseController
 			$this->userModel->insertMenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		}
 	}
-	public function changeMenuCategoryPermission()
+
+	public function changeSubMenuPermission()
 	{
-		$userAccess = $this->userModel->checkUserMenuCategoryAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		$userAccess = $this->userModel->checkUserSubmenuAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		if ($userAccess > 0) {
-			$this->userModel->deleteMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->deleteSubmenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		} else {
-			$this->userModel->insertMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->insertSubmenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		}
 	}
 }

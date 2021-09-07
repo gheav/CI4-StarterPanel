@@ -43,14 +43,21 @@ class Users extends Model
 			->where(['user_access.role_id' => $role])
 			->get()->getResultArray();
 	}
+
+	public function getMenuCategory()
+	{
+		return $this->db->table('user_menu_category')
+			->get()->getResultArray();
+	}
 	public function getMenu()
 	{
 		return $this->db->table('user_menu')
 			->get()->getResultArray();
 	}
-	public function getMenuCategory()
+
+	public function getSubmenu()
 	{
-		return $this->db->table('user_menu_category')
+		return $this->db->table('user_submenu')
 			->get()->getResultArray();
 	}
 	public function getUserRole($role = false)
@@ -65,17 +72,11 @@ class Users extends Model
 			->get()->getResultArray();
 	}
 
-	public function createRole($dataRole)
+	public function createMenuCategory($dataMenuCategory)
 	{
-		return $this->db->table('user_role')->insert(['role_name' => $dataRole['inputRoleName']]);
-	}
-	public function updateRole($dataRole)
-	{
-		return $this->db->table('user_role')->update(['role_name' => $dataRole['inputRoleName']], ['id' => $dataRole['roleID']]);
-	}
-	public function deleteRole($role)
-	{
-		return $this->db->table('user_role')->delete(['id' => $role]);
+		return $this->db->table('user_menu_category')->insert([
+			'menu_category'		=> $dataMenuCategory['inputMenuCategory']
+		]);
 	}
 	public function createMenu($dataMenu)
 	{
@@ -84,14 +85,28 @@ class Users extends Model
 			'title'			=> $dataMenu['inputMenuTitle'],
 			'url' 			=> $dataMenu['inputMenuURL'],
 			'icon' 			=> $dataMenu['inputMenuIcon'],
+			'parent' 		=> 0
 		]);
 	}
-	public function createMenuCategory($dataMenuCategory)
+
+	public function createSubMenu($dataSubmenu)
 	{
-		return $this->db->table('user_menu_category')->insert([
-			'menu_category'		=> $dataMenuCategory['inputMenuCategory']
+		$this->db->transBegin();
+		$this->db->table('user_submenu')->insert([
+			'menu'			=> $dataSubmenu['inputMenu'],
+			'title'			=> $dataSubmenu['inputSubmenuTitle'],
+			'url' 			=> $dataSubmenu['inputSubmenuURL']
 		]);
+		$this->db->table('user_menu')->update(['parent' => 1], ['id' => $dataSubmenu['inputMenu']]);
+		if ($this->db->transStatus() === FALSE) {
+			$this->db->transRollback();
+			return false;
+		} else {
+			$this->db->transCommit();
+			return true;
+		}
 	}
+
 	public function getMenuByUrl($menuUrl)
 	{
 		return $this->db->table('user_menu')
@@ -127,14 +142,18 @@ class Users extends Model
 	{
 		return $this->db->table('users')->delete(['id' => $userID]);
 	}
-	public function checkUserAccess($dataAccess)
+
+	public function createRole($dataRole)
 	{
-		return  $this->db->table('user_access')
-			->where([
-				'role_id' => $dataAccess['roleID'],
-				'menu_id' => $dataAccess['menuID']
-			])
-			->countAllResults();
+		return $this->db->table('user_role')->insert(['role_name' => $dataRole['inputRoleName']]);
+	}
+	public function updateRole($dataRole)
+	{
+		return $this->db->table('user_role')->update(['role_name' => $dataRole['inputRoleName']], ['id' => $dataRole['roleID']]);
+	}
+	public function deleteRole($role)
+	{
+		return $this->db->table('user_role')->delete(['id' => $role]);
 	}
 	public function checkUserMenuCategoryAccess($dataAccess)
 	{
@@ -145,13 +164,25 @@ class Users extends Model
 			])
 			->countAllResults();
 	}
-	public function insertMenuPermission($dataAccess)
+
+	public function checkUserAccess($dataAccess)
 	{
-		return $this->db->table('user_access')->insert(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']]);
+		return  $this->db->table('user_access')
+			->where([
+				'role_id' => $dataAccess['roleID'],
+				'menu_id' => $dataAccess['menuID']
+			])
+			->countAllResults();
 	}
-	public function deleteMenuPermission($dataAccess)
+
+	public function checkUserSubmenuAccess($dataAccess)
 	{
-		return $this->db->table('user_access')->delete(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']]);
+		return  $this->db->table('user_access')
+			->where([
+				'role_id' => $dataAccess['roleID'],
+				'submenu_id' => $dataAccess['submenuID']
+			])
+			->countAllResults();
 	}
 	public function insertMenuCategoryPermission($dataAccess)
 	{
@@ -160,5 +191,23 @@ class Users extends Model
 	public function deleteMenuCategoryPermission($dataAccess)
 	{
 		return $this->db->table('user_access')->delete(['role_id' => $dataAccess['roleID'], 'menu_category_id' => $dataAccess['menuCategoryID']]);
+	}
+
+	public function insertMenuPermission($dataAccess)
+	{
+		return $this->db->table('user_access')->insert(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']]);
+	}
+	public function deleteMenuPermission($dataAccess)
+	{
+		return $this->db->table('user_access')->delete(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']]);
+	}
+
+	public function insertSubmenuPermission($dataAccess)
+	{
+		return $this->db->table('user_access')->insert(['role_id' => $dataAccess['roleID'], 'submenu_id' => $dataAccess['submenuID']]);
+	}
+	public function deleteSubmenuPermission($dataAccess)
+	{
+		return $this->db->table('user_access')->delete(['role_id' => $dataAccess['roleID'], 'submenu_id' => $dataAccess['submenuID']]);
 	}
 }
