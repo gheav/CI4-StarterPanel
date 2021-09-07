@@ -29,11 +29,12 @@ class UserAccess extends Migration
 				'type'           => 'INT',
 				'constraint'     => 11,
 				'unsigned'       => true
-<<<<<<< HEAD
-			]
-=======
 			],
->>>>>>> master
+			'submenu_id'         => [
+				'type'           => 'INT',
+				'constraint'     => 11,
+				'unsigned'       => true
+			]
 
 		]);
 		$this->forge->addKey('id', true);

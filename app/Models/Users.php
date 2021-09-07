@@ -28,16 +28,14 @@ class Users extends Model
 		}
 	}
 
-<<<<<<< HEAD
 	public function getAccessMenuCategory($role)
 	{
 		return $this->db->table('user_menu_category')
+			->select('*,user_menu_category.id AS menuCategoryID')
 			->join('user_access', 'user_menu_category.id = user_access.menu_category_id')
 			->where(['user_access.role_id' => $role])
 			->get()->getResultArray();
 	}
-=======
->>>>>>> master
 	public function getAccessMenu($role)
 	{
 		return $this->db->table('user_menu')
@@ -50,14 +48,11 @@ class Users extends Model
 		return $this->db->table('user_menu')
 			->get()->getResultArray();
 	}
-<<<<<<< HEAD
 	public function getMenuCategory()
 	{
 		return $this->db->table('user_menu_category')
 			->get()->getResultArray();
 	}
-=======
->>>>>>> master
 	public function getUserRole($role = false)
 	{
 		if ($role) {
@@ -74,6 +69,10 @@ class Users extends Model
 	{
 		return $this->db->table('user_role')->insert(['role_name' => $dataRole['inputRoleName']]);
 	}
+	public function updateRole($dataRole)
+	{
+		return $this->db->table('user_role')->update(['role_name' => $dataRole['inputRoleName']], ['id' => $dataRole['roleID']]);
+	}
 	public function deleteRole($role)
 	{
 		return $this->db->table('user_role')->delete(['id' => $role]);
@@ -81,7 +80,6 @@ class Users extends Model
 	public function createMenu($dataMenu)
 	{
 		return $this->db->table('user_menu')->insert([
-<<<<<<< HEAD
 			'menu_category'	=> $dataMenu['inputMenuCategory'],
 			'title'			=> $dataMenu['inputMenuTitle'],
 			'url' 			=> $dataMenu['inputMenuURL'],
@@ -100,13 +98,6 @@ class Users extends Model
 			->where(['url' => $menuUrl])
 			->get()->getRowArray();
 	}
-=======
-			'title'		=> $dataMenu['inputMenuTitle'],
-			'url' 		=> $dataMenu['inputMenuURL'],
-			'icon' 		=> $dataMenu['inputMenuIcon'],
-		]);
-	}
->>>>>>> master
 	public function createUser($dataUser)
 	{
 		return $this->db->table('users')->insert([
@@ -114,11 +105,7 @@ class Users extends Model
 			'username' 		=> $dataUser['inputUsername'],
 			'password' 		=> password_hash($dataUser['inputPassword'], PASSWORD_DEFAULT),
 			'role' 			=> $dataUser['inputRole'],
-<<<<<<< HEAD
 			'created_at'    => date('Y-m-d h:i:s')
-=======
-			'created_at'    =>  date('Y-m-d h:i:s')
->>>>>>> master
 		]);
 	}
 	public function updateUser($dataUser)
@@ -142,7 +129,6 @@ class Users extends Model
 	}
 	public function checkUserAccess($dataAccess)
 	{
-<<<<<<< HEAD
 		return  $this->db->table('user_access')
 			->where([
 				'role_id' => $dataAccess['roleID'],
@@ -175,16 +161,4 @@ class Users extends Model
 	{
 		return $this->db->table('user_access')->delete(['role_id' => $dataAccess['roleID'], 'menu_category_id' => $dataAccess['menuCategoryID']]);
 	}
-=======
-		return  $this->db->table('user_access')->where(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']])->countAllResults();
-	}
-	public function insertAccessPermission($dataAccess)
-	{
-		return $this->db->table('user_access')->insert(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']]);
-	}
-	public function deleteAccessPermission($dataAccess)
-	{
-		return $this->db->table('user_access')->delete(['role_id' => $dataAccess['roleID'], 'menu_id' => $dataAccess['menuID']]);
-	}
->>>>>>> master
 }

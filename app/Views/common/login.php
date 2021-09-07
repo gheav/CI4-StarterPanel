@@ -27,15 +27,16 @@
                 <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                     <div class="d-table-cell align-middle">
 
-                        <div class="text-center mt-4">
-                            <h1 class="h2">Welcome to Admin CodeIgniter 4</h1>
-                            <p class="lead">
-                                Sign in to your account to continue
-                            </p>
-                        </div>
+
                         <?= $this->include('common/alerts'); ?>
                         <div class="card">
                             <div class="card-body">
+                                <div class="text-center mt-4">
+                                    <h1 class="h2">Welcome to CodeIgniter 4 Starter Panel</h1>
+                                    <p class="lead">
+                                        Sign in to your account to continue
+                                    </p>
+                                </div>
                                 <div class="m-sm-4">
                                     <div class="text-center">
                                         <img src="<?= base_url('assets/img/avatars/avatar.jpg') ?>" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
@@ -49,11 +50,8 @@
                                             <label class="form-label">Password</label>
                                             <input class="form-control form-control-lg" type="password" name="inputPassword" placeholder="Enter your password" />
                                             <small>
-<<<<<<< HEAD
-                                                <a href="pages-reset-password.html">Forgot password?</a> <a href="<?= base_url('register') ?>">Don't have an account? Register</a>
-=======
-                                                <a href="pages-reset-password.html">Forgot password?</a>
->>>>>>> master
+                                                <!-- <a href="pages-reset-password.html">Forgot password?</a> -->
+                                                <a href="<?= base_url('register') ?>">Don't have an account? Register</a>
                                             </small>
                                         </div>
                                         <div>

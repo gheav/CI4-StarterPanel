@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class UserMenu extends Migration
+class UserSubmenu extends Migration
 {
 	public function up()
 	{
@@ -15,7 +15,7 @@ class UserMenu extends Migration
 				'unsigned'       => true,
 				'auto_increment' => true,
 			],
-			'menu_category'      => [
+			'menu'      => [
 				'type'           => 'INT',
 				'constraint'     => 11,
 				'unsigned'       => true
@@ -27,22 +27,15 @@ class UserMenu extends Migration
 			'url'       => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
-			],
-			'icon'       => [
-				'type'       => 'TEXT'
-			],
-			'parent'       => [
-				'type'       => 'TINYINT',
-				'constraint' => '1',
-			],
+			]
 
 		]);
 		$this->forge->addKey('id', true);
-		$this->forge->createTable('user_menu');
+		$this->forge->createTable('user_submenu');
 	}
 
 	public function down()
 	{
-		$this->forge->dropTable('user_menu');
+		$this->forge->dropTable('user_submenu');
 	}
 }

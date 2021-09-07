@@ -27,19 +27,11 @@ class Users extends BaseController
 		}
 		$data = array_merge($this->data, [
 			'title' 		=> 'Users Page',
-<<<<<<< HEAD
 			'Menus'			=> $this->userModel->getMenu(),
 			'MenuCategories'	=> $this->userModel->getMenuCategory(),
 			'UserAccess'	=> $this->userModel->getAccessMenu($role),
 			'role'			=> $this->userModel->getUserRole($role)
 		]);
-=======
-			'menu'			=> $this->userModel->getMenu(),
-			'UserAccess'	=> $this->userModel->getAccessMenu($role),
-			'role'			=> $this->userModel->getUserRole($role)
-		]);
-		// dd($data['UserAccess']);
->>>>>>> master
 		return view('users/userAccessList', $data);
 	}
 	public function createRole()
@@ -50,6 +42,17 @@ class Users extends BaseController
 			return redirect()->to(base_url('users'));
 		} else {
 			session()->setFlashdata('notif_error', '<b>Failed to add role data</b> ');
+			return redirect()->to(base_url('users'));
+		}
+	}
+	public function updateRole()
+	{
+		$updateRole = $this->userModel->updateRole($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($updateRole) {
+			session()->setFlashdata('notif_success', '<b>Successfully update user data</b> ');
+			return redirect()->to(base_url('users'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to update user data</b> ');
 			return redirect()->to(base_url('users'));
 		}
 	}
@@ -78,7 +81,6 @@ class Users extends BaseController
 			return redirect()->to(base_url('users'));
 		}
 	}
-<<<<<<< HEAD
 	public function createMenuCategory()
 	{
 		$createMenuCategory = $this->userModel->createMenuCategory($this->request->getPost(null, FILTER_SANITIZE_STRING));
@@ -90,8 +92,6 @@ class Users extends BaseController
 			return redirect()->to(base_url('users'));
 		}
 	}
-=======
->>>>>>> master
 	public function createUser()
 	{
 		if (!$this->validate(['inputUsername' => ['rules' => 'is_unique[users.username]']])) {
@@ -133,7 +133,6 @@ class Users extends BaseController
 		}
 	}
 
-<<<<<<< HEAD
 	public function changeMenuPermission()
 	{
 		$userAccess = $this->userModel->checkUserAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
@@ -150,15 +149,6 @@ class Users extends BaseController
 			$this->userModel->deleteMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		} else {
 			$this->userModel->insertMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
-=======
-	public function changeAccessPermission()
-	{
-		$userAccess = $this->userModel->checkUserAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
-		if ($userAccess > 0) {
-			$this->userModel->deleteAccessPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
-		} else {
-			$this->userModel->insertAccessPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
->>>>>>> master
 		}
 	}
 }

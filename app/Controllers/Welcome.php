@@ -46,7 +46,6 @@ class Welcome extends BaseController
 		$this->session->destroy();
 		return redirect()->to(base_url('/'));
 	}
-<<<<<<< HEAD
 
 	public function forbiddenPage()
 	{
@@ -87,6 +86,4 @@ class Welcome extends BaseController
 			return view('common/login');
 		}
 	}
-=======
->>>>>>> master
 }
