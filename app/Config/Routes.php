@@ -40,6 +40,7 @@ $routes->get('home', 'Home::index');
 
 $routes->get('users/userRoleAccess', 'Users::userRoleAccess');
 $routes->post('users/createRole', 'Users::createRole');
+$routes->post('users/updateRole', 'Users::updateRole');
 $routes->post('users/createMenu', 'Users::createMenu');
 $routes->post('users/createMenuCategory', 'Users::createMenuCategory');
 $routes->delete('users/deleteRole', 'Users::deleteRole');

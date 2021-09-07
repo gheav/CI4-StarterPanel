@@ -56,37 +56,20 @@
         <div class="col-12 col-sm-6  d-flex">
             <div class="card flex-fill">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Role Access Form</h5>
+                    <h5 class="card-title mb-0">Menu Management</h5>
                 </div>
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
+
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Role</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Menu Category</button>
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Menu Category</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Menu</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="mt-3">
-                                <h5 class="fw-bold text-primary">Create New Role</h5>
-                                <hr>
-                                <form action="<?= base_url('users/createRole'); ?> " method="post">
-                                    <div class="mb-3">
-                                        <label for="inputRoleName" class="form-label">Add Role</label>
-                                        <input type="text" class="form-control" id="inputRoleName" name="inputRoleName" placeholder="Role Name">
-                                    </div>
-                                    <div class="text-end">
-                                        <button class="btn btn-primary ">Save Role</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="mt-3">
                                 <h5 class="fw-bold text-primary">Create New Menu Category</h5>
                                 <hr>

@@ -68,6 +68,10 @@ class Users extends Model
 	{
 		return $this->db->table('user_role')->insert(['role_name' => $dataRole['inputRoleName']]);
 	}
+	public function updateRole($dataRole)
+	{
+		return $this->db->table('user_role')->update(['role_name' => $dataRole['inputRoleName']], ['id' => $dataRole['roleID']]);
+	}
 	public function deleteRole($role)
 	{
 		return $this->db->table('user_role')->delete(['id' => $role]);

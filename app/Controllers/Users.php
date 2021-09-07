@@ -45,6 +45,17 @@ class Users extends BaseController
 			return redirect()->to(base_url('users'));
 		}
 	}
+	public function updateRole()
+	{
+		$updateRole = $this->userModel->updateRole($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		if ($updateRole) {
+			session()->setFlashdata('notif_success', '<b>Successfully update user data</b> ');
+			return redirect()->to(base_url('users'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to update user data</b> ');
+			return redirect()->to(base_url('users'));
+		}
+	}
 	public function deleteRole($role)
 	{
 		if (!$role) {
