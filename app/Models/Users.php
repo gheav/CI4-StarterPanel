@@ -31,6 +31,7 @@ class Users extends Model
 	public function getAccessMenuCategory($role)
 	{
 		return $this->db->table('user_menu_category')
+			->select('*,user_menu_category.id AS menuCategoryID')
 			->join('user_access', 'user_menu_category.id = user_access.menu_category_id')
 			->where(['user_access.role_id' => $role])
 			->get()->getResultArray();

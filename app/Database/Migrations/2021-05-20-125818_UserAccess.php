@@ -29,6 +29,11 @@ class UserAccess extends Migration
 				'type'           => 'INT',
 				'constraint'     => 11,
 				'unsigned'       => true
+			],
+			'submenu_id'         => [
+				'type'           => 'INT',
+				'constraint'     => 11,
+				'unsigned'       => true
 			]
 
 		]);

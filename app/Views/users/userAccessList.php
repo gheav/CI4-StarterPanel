@@ -65,7 +65,10 @@
                             <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Menu Category</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Menu</button>
+                            <button class="nav-link" id="menu-tab" data-bs-toggle="tab" data-bs-target="#menu" type="button" role="tab" aria-controls="menu" aria-selected="false">Menu</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="submenu-tab" data-bs-toggle="tab" data-bs-target="#submenu" type="button" role="tab" aria-controls="submenu" aria-selected="false">Submenu</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -84,7 +87,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
                             <div class="mt-3">
                                 <h5 class="fw-bold text-primary">Create New Menu</h5>
                                 <hr>
@@ -112,6 +115,34 @@
                                     </div>
                                     <div class="text-end">
                                         <button class="btn btn-primary ">Save Menu</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="submenu" role="tabpanel" aria-labelledby="submenu-tab">
+                            <div class="mt-3">
+                                <h5 class="fw-bold text-primary">Create New Submenu</h5>
+                                <hr>
+                                <form action="<?= base_url('users/createSubMenu'); ?>" method="post">
+                                    <div class="mb-3">
+                                        <label for="inputMenu" class="form-label">Menu Parent</label>
+                                        <select name="inputMenu" id="inputMenu" class="form-control">
+                                            <option value=""> -- Choose Menu Parent --</option>
+                                            <?php foreach ($Menus as $menu) : ?>
+                                                <option value="<?= $menu['id']; ?>"><?= $menu['title']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputMenuTitle" class="form-label">Submenu Title</label>
+                                        <input type="text" class="form-control" id="inputMenuTitle" name="inputMenuTitle">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputMenuURL" class="form-label">Submenu URL</label>
+                                        <input type="text" class="form-control" id="inputMenuURL" name="inputMenuURL">
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-primary ">Save Submenu</button>
                                     </div>
                                 </form>
                             </div>

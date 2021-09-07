@@ -13,13 +13,15 @@ class UserMenu extends Seeder
 				'menu_category' => 1,
 				'title' 		=> 'Dashboard',
 				'url'    		=> 'home',
-				'icon'    		=> 'home'
+				'icon'    		=> 'home',
+				'parent'   		=> 0
 			],
 			[
 				'menu_category' => 2,
 				'title' 		=> 'Users',
 				'url'    		=> 'users',
-				'icon'    		=> 'user'
+				'icon'    		=> 'user',
+				'parent'   		=> 0
 			]
 		];
 		$this->db->table('user_menu')->insertBatch($data);
