@@ -1,9 +1,8 @@
 <?php
 
 // Valid PHP Version?
-$minPHPVersion = '7.3';
-if (version_compare(PHP_VERSION, $minPHPVersion, '<'))
-{
+$minPHPVersion = '8.0';
+if (version_compare(PHP_VERSION, $minPHPVersion, '<')) {
 	die("Your PHP version must be {$minPHPVersion} or higher to run CodeIgniter. Current version: " . PHP_VERSION);
 }
 unset($minPHPVersion);
