@@ -54,9 +54,15 @@ class BaseController extends Controller
 		$this->encrypter 	= \Config\Services::encrypter();
 		$this->userModel  	= new Users();
 		$user 				= $this->userModel->getUser(username: session()->get('username'));
-
+		$segment 			= $this->request->uri->getSegment(1);
+		if ($segment) {
+			$subsegment 	= $this->request->uri->getSegment(2);
+		} else {
+			$subsegment 	= '';
+		}
 		$this->data			= [
-			'segment' 		=> $this->request->uri->getSegment(1),
+			'segment' 		=> $segment,
+			'subsegment' 	=> $subsegment,
 			'user' 			=> $user,
 			'MenuCategory' 	=> $this->userModel->getAccessMenuCategory(session()->get('role'))
 		];

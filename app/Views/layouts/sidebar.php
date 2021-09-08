@@ -20,7 +20,7 @@
                         </li>
                     <?php
                     else :
-                        $SubMenu =  getSubMenu($menu['id'], $user['role']);
+                        $SubMenu =  getSubMenu($menu['menu_id'], $user['role']);
                     ?>
                         <li class="sidebar-item <?= ($segment == $menu['url']) ? 'active' : ''; ?>">
                             <a data-bs-target="#<?= $menu['url'] ?>" data-bs-toggle="collapse" class="sidebar-link collapsed" aria-expanded="<?= ($segment == $menu['url']) ? 'true' : 'false'; ?>">
