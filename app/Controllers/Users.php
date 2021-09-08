@@ -85,12 +85,18 @@ class Users extends BaseController
 
 	public function createMenu()
 	{
-		$createMenu = $this->userModel->createMenu($this->request->getPost(null, FILTER_SANITIZE_STRING));
-		if ($createMenu) {
-			session()->setFlashdata('notif_success', '<b>Successfully create menu </b> ');
-			return redirect()->to(base_url('users'));
+		$createController = $this->_createController();
+		if ($createController) {
+			$createMenu = $this->userModel->createMenu($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			if ($createMenu) {
+				session()->setFlashdata('notif_success', '<b>Successfully create menu </b> ');
+				return redirect()->to(base_url('users'));
+			} else {
+				session()->setFlashdata('notif_error', '<b>Failed to create menu </b> ');
+				return redirect()->to(base_url('users'));
+			}
 		} else {
-			session()->setFlashdata('notif_error', '<b>Failed to create menu </b> ');
+			session()->setFlashdata('notif_error', "<b>Failed to create menu </b>Cannot create file ");
 			return redirect()->to(base_url('users'));
 		}
 	}
@@ -174,6 +180,32 @@ class Users extends BaseController
 			$this->userModel->deleteSubmenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
 		} else {
 			$this->userModel->insertSubmenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		}
+	}
+
+	public function _createController()
+	{
+		$controllerName = ucfirst(url_title($this->request->getPost('inputMenuTitle'), '_', true));
+		$controllerPath	= APPPATH . 'Controllers/' . $controllerName . ".php";
+		$controllerContent = "<?php
+		namespace App\Controllers;
+		use App\Controllers\BaseController;
+		class $controllerName extends BaseController
+		{
+			public function index()
+			{
+				$|data = array_merge($|this->data, [
+					'title'         => '$controllerName Page'
+				]);
+				return view('common/home', $|data);
+			}
+		}
+		";
+		$renderFile = str_replace("|", "", $controllerContent);
+		if (file_put_contents($controllerPath, $renderFile) !== false) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
