@@ -85,8 +85,9 @@ class Users extends BaseController
 
 	public function createMenu()
 	{
-		$createController = $this->_createController();
-		if ($createController) {
+		$createController 	= $this->_createController();
+		$createView			= $this->_createView();
+		if ($createController && $createView) {
 			$createMenu = $this->userModel->createMenu($this->request->getPost(null, FILTER_SANITIZE_STRING));
 			if ($createMenu) {
 				session()->setFlashdata('notif_success', '<b>Successfully create menu </b> ');
@@ -185,7 +186,10 @@ class Users extends BaseController
 
 	public function _createController()
 	{
-		$controllerName = ucfirst(url_title($this->request->getPost('inputMenuTitle'), '_', true));
+		$menuTitle		= $this->request->getPost('inputMenuTitle');
+		$controllerName = url_title(ucwords($menuTitle), '', false);
+		$viewName 		= url_title($menuTitle, '', true);
+		$viewPath		= $viewName . ".php";
 		$controllerPath	= APPPATH . 'Controllers/' . $controllerName . ".php";
 		$controllerContent = "<?php
 		namespace App\Controllers;
@@ -195,14 +199,30 @@ class Users extends BaseController
 			public function index()
 			{
 				$|data = array_merge($|this->data, [
-					'title'         => '$controllerName Page'
+					'title'         => '$menuTitle'
 				]);
-				return view('common/home', $|data);
+				return view('$viewPath', $|data);
 			}
 		}
 		";
 		$renderFile = str_replace("|", "", $controllerContent);
 		if (file_put_contents($controllerPath, $renderFile) !== false) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public function _createView()
+	{
+		$viewName 		= url_title($this->request->getPost('inputMenuTitle'), '', true);
+		$viewPath		= APPPATH . 'Views/' . $viewName . ".php";
+		$viewContent 	= "<?= $|this->extend('layouts/main'); ?>
+		<?= $|this->section('content'); ?>
+		<h1 class=\"h3 mb-3\"><strong><?= $|title; ?></strong> Menu </h1>
+		<?= $|this->endSection(); ?>
+		";
+		$renderFile = str_replace("|", "", $viewContent);
+		if (file_put_contents($viewPath, $renderFile) !== false) {
 			return true;
 		} else {
 			return false;

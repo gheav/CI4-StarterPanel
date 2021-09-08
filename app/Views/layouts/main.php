@@ -30,8 +30,10 @@
 			<?= $this->include('layouts/header'); ?>
 			<!-- CONTENT -->
 			<main class="content">
-				<?= $this->include('common/alerts'); ?>
-				<?= $this->renderSection('content'); ?>
+				<div class="container-fluid p-0">
+					<?= $this->include('common/alerts'); ?>
+					<?= $this->renderSection('content'); ?>
+				</div>
 			</main>
 			<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
 			<?= $this->include('layouts/footer'); ?>
