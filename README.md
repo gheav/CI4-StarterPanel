@@ -33,6 +33,6 @@ Features on this project:
 
 - Authentication
 - Authorization
-- Register
+- User Registration
 - Menu Management with auto create controller and view file
 
