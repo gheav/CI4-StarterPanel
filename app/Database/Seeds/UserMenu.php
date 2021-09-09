@@ -22,7 +22,21 @@ class UserMenu extends Seeder
 				'url'    		=> 'users',
 				'icon'    		=> 'user',
 				'parent'   		=> 0
-			]
+			],
+			[
+				'menu_category' => 3,
+				'title' 		=> 'Menu Management',
+				'url'    		=> 'menuManagement',
+				'icon'    		=> 'command',
+				'parent'   		=> 0
+			],
+			[
+				'menu_category' => 3,
+				'title' 		=> 'CRUD Generator',
+				'url'    		=> 'crudGenerator',
+				'icon'    		=> 'code',
+				'parent'   		=> 0
+			],
 		];
 		$this->db->table('user_menu')->insertBatch($data);
 	}

@@ -31,6 +31,8 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+//Common Routes
 $routes->get('/', 'Welcome::index');
 $routes->post('GetLogin', 'Welcome::index');
 $routes->get('blocked', 'Welcome::forbiddenPage');
@@ -38,22 +40,24 @@ $routes->get('register', 'Welcome::register');
 $routes->post('register', 'Welcome::registration');
 $routes->get('home', 'Home::index');
 
+// Setting Routes
 $routes->get('users/userRoleAccess', 'Users::userRoleAccess');
 $routes->post('users/createRole', 'Users::createRole');
 $routes->post('users/updateRole', 'Users::updateRole');
 $routes->delete('users/deleteRole', 'Users::deleteRole');
-
 $routes->post('users/createMenuCategory', 'Users::createMenuCategory');
 $routes->post('users/createMenu', 'Users::createMenu');
 $routes->post('users/createSubMenu', 'Users::createSubMenu');
-
 $routes->post('users/createUser', 'Users::createUser');
 $routes->post('users/updateUser', 'Users::updateUser');
 $routes->delete('users/deleteUser', 'Users::deleteUser');
-
 $routes->post('users/changeMenuPermission', 'Users::changeMenuPermission');
 $routes->post('users/changeMenuCategoryPermission', 'Users::changeMenuCategoryPermission');
 $routes->post('users/changeSubMenuPermission', 'Users::changeSubMenuPermission');
+
+//Developer Routes
+$routes->get('menuManagement', 'Developers/MenuManagement::index');
+$routes->get('crudGenerator', 'Developers/CRUDGenerator::index');
 
 /*
  * --------------------------------------------------------------------

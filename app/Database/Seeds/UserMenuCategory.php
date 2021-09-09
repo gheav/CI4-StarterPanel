@@ -14,6 +14,9 @@ class UserMenuCategory extends Seeder
 			],
 			[
 				'menu_category' 	=> 'Settings'
+			],
+			[
+				'menu_category' 	=> 'Developers'
 			]
 		];
 		$this->db->table('user_menu_category')->insertBatch($data);
