@@ -52,13 +52,50 @@
             </div>
             <div class="card-body ">
                 <div class="row">
+                    <div class="col-sm-4 ">
+                        <h3 class="fw-bold">Controller</h3>
+
+                    </div>
+                    <div class="col-sm-4 ">
+                        <h3 class="fw-bold">Model</h3>
+
+                    </div>
+                    <div class="col-sm-4 ">
+                        <h3 class="fw-bold">View</h3>
+
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-4 border">
+                        <h5 class="fw-bold"> Read</h5>
+                        <br>
+                        <h5 class="fw-bold"> Insert</h5>
+                        <br>
+                        <h5 class="fw-bold"> Update</h5>
+                        <br>
+                        <h5 class="fw-bold"> Delete</h5>
 
                     </div>
                     <div class="col-sm-4 border">
+                        <h5 class="fw-bold"> Read</h5>
+                        <br>
+                        <h5 class="fw-bold"> Insert</h5>
+                        <br>
+                        <h5 class="fw-bold"> Update</h5>
+                        <br>
+                        <h5 class="fw-bold"> Delete</h5>
 
                     </div>
-                    <div class="col-sm-4 border"></div>
+                    <div class="col-sm-4 border">
+                        <h5 class="fw-bold"> Read</h5>
+                        <br>
+                        <h5 class="fw-bold"> Insert</h5>
+                        <br>
+                        <h5 class="fw-bold"> Update</h5>
+                        <br>
+                        <h5 class="fw-bold"> Delete</h5>
+
+                    </div>
                 </div>
             </div>
         </div>
