@@ -6,8 +6,8 @@
 
 ## Setup
 
-- Run `db:create` to create a new database schema.
 - Copy `env` to `.env` and tailor for your app, specifically the baseURL and any database settings.
+- Run `db:create` to create a new database schema.
 - Run `php spark migrate` to running database migration
 - Run `php spark db:seed users` to seeding default database user
 - Run `php spark key:generate` to create encrypter key
