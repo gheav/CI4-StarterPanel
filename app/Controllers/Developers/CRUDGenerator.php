@@ -13,10 +13,19 @@ class CRUDGenerator extends BaseController
 	}
 	public function index()
 	{
+		$table 	=  $this->request->getGet('table');
+
 		$data = array_merge($this->data, [
 			'title'     => 'CRUD Generator',
-			'Tables'	=> $this->developerModel->getTableDatabase()
+			'Tables'	=> $this->developerModel->getTableDatabase(),
+			'Columns'	=> $this->developerModel->getTableDatabase(),
+			'tableName'	=> $table,
+			'create' 	=> $this->request->getGet('create'),
+			'read' 		=> $this->request->getGet('read'),
+			'update' 	=> $this->request->getGet('update'),
+			'delete' 	=> $this->request->getGet('delete'),
+			'file' 		=> $this->request->getGet('file'),
 		]);
-		return view('developers/crudGenerator.php', $data);
+		return view('developers/crudGenerator', $data);
 	}
 }

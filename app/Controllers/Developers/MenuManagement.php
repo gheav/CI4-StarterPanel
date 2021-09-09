@@ -11,6 +11,6 @@ class MenuManagement extends BaseController
 		$data = array_merge($this->data, [
 			'title'         => 'Menu Management'
 		]);
-		return view('developers/menuManagement.php', $data);
+		return view('developers/menuManagement', $data);
 	}
 }

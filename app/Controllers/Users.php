@@ -189,7 +189,6 @@ class Users extends BaseController
 		$menuTitle		= $this->request->getPost('inputMenuTitle');
 		$controllerName = url_title(ucwords($menuTitle), '', false);
 		$viewName 		= url_title($menuTitle, '', true);
-		$viewPath		= $viewName . ".php";
 		$controllerPath	= APPPATH . 'Controllers/' . $controllerName . ".php";
 		$controllerContent = "<?php
 		namespace App\Controllers;
@@ -201,7 +200,7 @@ class Users extends BaseController
 				$|data = array_merge($|this->data, [
 					'title'         => '$menuTitle'
 				]);
-				return view('$viewPath', $|data);
+				return view('$viewName', $|data);
 			}
 		}
 		";
