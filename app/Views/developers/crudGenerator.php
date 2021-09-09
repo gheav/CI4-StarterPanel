@@ -28,13 +28,24 @@
             </div>
             <div class="card-body">
                 <form action="<?= base_url('crudGenerator'); ?> " method="get">
-                    <select class="form-select" name="table" required>
-                        <option value="">-- Select Table --</option>
-                        <?php foreach ($Tables as $table) : ?>
-                            <option value="<?= $table; ?>" <?= ($tableName == $table) ? 'selected' : ''; ?>><?= $table; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-
+                    <div class="form-group mb-3">
+                        <label for="" class="fw-bold">Menu</label>
+                        <select class="form-select" name="menu" required>
+                            <option value="">-- Select Menu --</option>
+                            <?php foreach ($Tables as $tables) : ?>
+                                <option value="<?= $tables; ?>" <?= ($menu == $tables) ? 'selected' : ''; ?>><?= $tables; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="" class="fw-bold">Table</label>
+                        <select class="form-select" name="table" required>
+                            <option value="">-- Select Table --</option>
+                            <?php foreach ($Tables as $tables) : ?>
+                                <option value="<?= $tables; ?>" <?= ($tableName == $tables) ? 'selected' : ''; ?>><?= $tables; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                     <hr>
                     <div class="form-group mb-3">
                         <label for="" class="fw-bold">Generate Function</label>
@@ -83,92 +94,114 @@
                 <h5 class="card-title "> Source Code </h5>
             </div>
             <div class="card-body">
-                <?php if ($file == 'controller') : ?>
-                    <h5 class="fw-bold"> Read</h5>
-                    <hr>
-                    <pre>
+                <?php
+                $functionName   = str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $tableName))));
+                $modelName      = str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $menu))));
+                $title          = ucwords(strtolower(str_replace('_', ' ', $menu)));
+
+                ?>
+                <h5 class="fw-bold"> Constructor</h5>
+                <hr>
+                <pre>
                 <code class="text-primary">
-        public function index()
+    function __construct()
+    {
+        $this-&gt;<?= $modelName ?>Model = new <?= $modelName ?>();
+    }
+                </code>
+                </pre>
+                <hr>
+                <?php if ($file == 'controller') : ?>
+                    <?php if ($read) : ?>
+                        <h5 class="fw-bold"> Read</h5>
+                        <hr>
+                        <pre>
+                <code class="text-primary">
+    public function index()
+    {
+        $data = array_merge($this->data, [
+            'title'     =&gt; <?= $title; ?>,
+            'Tables'    =&gt; $this-&gt;<?= $modelName; ?>Model->get<?= $functionName; ?>()
+        ]);
+        return view('<?= $menu; ?>', $data);
+    }
+                </code>
+                </pre>
+                        <hr>
+                    <?php endif; ?>
+                    <?php if ($create) : ?>
+                        <h5 class="fw-bold"> Insert</h5>
+                        <hr>
+                        <pre>
+                <code class="text-primary">
+    public function create<?= $functionName; ?>()
+    {
+        $create<?= $functionName; ?> = $this-&gt;<?= $modelName; ?>Model-&gt;create<?= $functionName; ?>($this->request->getPost(null, FILTER_SANITIZE_STRING));
+        if ($create<?= $functionName; ?>) {
+            session()-&gt;setFlashdata('notif_success', '&lt;b&gt;Successfully added new <?= ucwords(strtolower(str_replace('_', ' ', $tableName))); ?>&lt;/b&gt;');
+            return redirect()-&gt;to(base_url('<?= $menu; ?>'));
+        } else {
+            session()-&gt;setFlashdata('notif_error', '&lt;b&gt;Failed to add new <?= ucwords(strtolower(str_replace('_', ' ', $tableName))); ?>&lt;/b&gt;');
+            return redirect()-&gt;to(base_url('<?= $menu; ?>'));
+        }
+    }
+                    </code>
+                </pre>
+                        <hr>
+                    <?php endif; ?>
+                    <?php if ($update) : ?>
+                        <h5 class="fw-bold"> Update</h5>
+                        <hr>
+                        <pre>
+                <code class="text-primary">
+        public function update<?= $functionName; ?>()
         {
-            $this->Model->getData();
+            $update<?= $functionName; ?> = $this-&gt;<?= $modelName; ?>Model-&gt;update<?= $functionName; ?>($this-&gt;request-&gt;getPost(null, FILTER_SANITIZE_STRING));
+            if ($update<?= $functionName; ?>) {
+                session()-&gt;setFlashdata('notif_success', '&lt;b&gt;Successfully update <?= ucwords(strtolower(str_replace('_', ' ', $tableName))); ?>&lt;/b&gt;');
+                return redirect()-&gt;to(base_url('<?= $menu; ?>'));
+            } else {
+                session()-&gt;setFlashdata('notif_error', '&lt;b&gt;Failed to update <?= ucwords(strtolower(str_replace('_', ' ', $tableName))); ?>&lt;/b&gt;');
+                return redirect()-&gt;to(base_url('<?= $menu; ?>'));
+            }
         }
                 </code>
                 </pre>
-                    <hr>
-                    <h5 class="fw-bold"> Insert</h5>
-                    <hr>
-                    <pre>
+                        <hr>
+                    <?php endif; ?>
+                    <?php if ($delete) : ?>
+                        <h5 class="fw-bold"> Delete</h5>
+                        <hr>
+                        <pre>
                 <code class="text-primary">
-        public function createUser()
+
+        public function delete<?= $functionName ?>($<?= $functionName ?>ID)
         {
-            if (!$this->validate(['inputUsername' => ['rules' => 'is_unique[users.username]']])) {
-                session()->setFlashdata('notif_error', '<b>Failed to add new user</b> The user already exists! ');
-                return redirect()->to(base_url('users'));
+            if (!$<?= $functionName ?>ID) {
+                return redirect()-&gt;to(base_url('<?= $menu; ?>'));
             }
-            $createUser = $this->userModel->createUser($this->request->getPost(null, FILTER_SANITIZE_STRING));
-            if ($createUser) {
-                session()->setFlashdata('notif_success', '<b>Successfully added new user</b> ');
-                return redirect()->to(base_url('users'));
+            $delete<?= $functionName ?> = $this-&gt;<?= $modelName; ?>Model-&gt;delete<?= $functionName ?>($<?= $functionName ?>ID);
+            if ($delete<?= $functionName ?>) {
+                session()-&gt;setFlashdata('notif_success', '&lt;b&gt;Successfully delete <?= ucwords(strtolower(str_replace('_', ' ', $tableName))); ?>&lt;/b&gt;');
+                return redirect()-&gt;to(base_url('<?= $menu; ?>'));
             } else {
-                session()->setFlashdata('notif_error', '<b>Failed to add new user</b> ');
-                return redirect()->to(base_url('users'));
+                session()-&gt;setFlashdata('notif_error', '&lt;b&gt;Failed to delete <?= ucwords(strtolower(str_replace('_', ' ', $tableName))); ?>&lt;/b&gt;');
+                return redirect()-&gt;to(base_url('<?= $menu; ?>'));
             }
         }
                     </code>
                 </pre>
-                    <hr>
-                    <h5 class="fw-bold"> Update</h5>
-                    <hr>
-                    <pre>
-                <code class="text-primary">
-        public function updateUser()
-        {
-            $updateUser = $this->userModel->updateUser($this->request->getPost(null, FILTER_SANITIZE_STRING));
-            if ($updateUser) {
-                session()->setFlashdata('notif_success', '<b>Successfully update user data</b> ');
-                return redirect()->to(base_url('users'));
-            } else {
-                session()->setFlashdata('notif_error', '<b>Failed to update user data</b> ');
-                return redirect()->to(base_url('users'));
-            }
-        }
-                </code>
-                </pre>
-                    <h5 class="fw-bold"> Delete</h5>
-                    <hr>
-                    <pre>
-                <code class="text-primary">
+                    <?php endif; ?>
 
-        public function deleteUser($userID)
-        {
-            if (!$userID) {
-            return redirect()->to(base_url('users'));
-            }
-            $deleteUser = $this->userModel->deleteUser($userID);
-            if ($deleteUser) {
-                session()->setFlashdata('notif_success', '<b>Successfully delete user</b> ');
-                return redirect()->to(base_url('users'));
-            } else {
-                session()->setFlashdata('notif_error', '<b>Failed to delete user</b> ');
-                return redirect()->to(base_url('users'));
-            }
-        }
-                </code>
-                </pre>
                 <?php elseif ($file == 'model') : ?>
-                    <h5 class="fw-bold"> Read</h5>
-                    <hr>
-                    <pre>
+                    <?php if ($read) : ?>
+                        <h5 class="fw-bold"> Read</h5>
+                        <hr>
+                        <pre>
                 <code class="text-primary">
-    public function getUser($username = false, $userID = false)
+    public function getUser($userID = false)
 	{
-		if ($username) {
-			return $this->db->table('users')
-				->select('*,users.id AS userID,user_role.id AS role_id')
-				->join('user_role', 'users.role = user_role.id')
-				->where(['username' => $username])
-				->get()->getRowArray();
-		} elseif ($userID) {
+		if ($userID) {
 			return $this->db->table('users')
 				->select('*,users.id AS userID,user_role.id AS role_id')
 				->join('user_role', 'users.role = user_role.id')
@@ -183,10 +216,12 @@
 	}
                 </code>
                 </pre>
-                    <hr>
-                    <h5 class="fw-bold"> Insert</h5>
-                    <hr>
-                    <pre>
+                        <hr>
+                    <?php endif; ?>
+                    <?php if ($create) : ?>
+                        <h5 class="fw-bold"> Insert</h5>
+                        <hr>
+                        <pre>
                 <code class="text-primary">
     public function createMenu($dataMenu)
 	{
@@ -200,10 +235,12 @@
 	}
                     </code>
                 </pre>
-                    <hr>
-                    <h5 class="fw-bold"> Update</h5>
-                    <hr>
-                    <pre>
+                        <hr>
+                    <?php endif; ?>
+                    <?php if ($update) : ?>
+                        <h5 class="fw-bold"> Update</h5>
+                        <hr>
+                        <pre>
                 <code class="text-primary">
     return $this->db->table('users')->update([
 			'fullname'		=> $dataUser['inputFullname'],
@@ -213,9 +250,13 @@
 		], ['id' => $dataUser['userID']]);
                 </code>
                 </pre>
-                    <h5 class="fw-bold"> Delete</h5>
-                    <hr>
-                    <pre>
+                        <hr>
+                    <?php endif; ?>
+                    <?php if ($delete) : ?>
+                        <h5 class="fw-bold"> Delete</h5>
+                        <hr>
+
+                        <pre>
                 <code class="text-primary">
 
     public function deleteUser($userID)
@@ -225,6 +266,7 @@
 
                 </code>
                 </pre>
+                    <?php endif; ?>
                 <?php elseif ($file == 'view') : ?>
                     <pre>
                         <code class="text-primary">

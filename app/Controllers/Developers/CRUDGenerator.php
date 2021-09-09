@@ -20,6 +20,7 @@ class CRUDGenerator extends BaseController
 			'Tables'	=> $this->developerModel->getTableDatabase(),
 			'Columns'	=> $this->developerModel->getTableDatabase(),
 			'tableName'	=> $table,
+			'menu'		=> $this->request->getGet('menu'),
 			'create' 	=> $this->request->getGet('create'),
 			'read' 		=> $this->request->getGet('read'),
 			'update' 	=> $this->request->getGet('update'),
