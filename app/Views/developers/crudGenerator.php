@@ -100,9 +100,11 @@
                 $title          = ucwords(strtolower(str_replace('_', ' ', $menu)));
 
                 ?>
-                <h5 class="fw-bold"> Constructor</h5>
-                <hr>
-                <pre>
+
+                <?php if ($file == 'controller') : ?>
+                    <h5 class="fw-bold"> Constructor</h5>
+                    <hr>
+                    <pre>
                 <code class="text-primary">
     function __construct()
     {
@@ -110,8 +112,7 @@
     }
                 </code>
                 </pre>
-                <hr>
-                <?php if ($file == 'controller') : ?>
+                    <hr>
                     <?php if ($read) : ?>
                         <h5 class="fw-bold"> Read</h5>
                         <hr>
@@ -268,15 +269,35 @@
                 </pre>
                     <?php endif; ?>
                 <?php elseif ($file == 'view') : ?>
+                    <h5 class="fw-bold"> Form</h5>
+                    <hr>
+                    <pre>
+                        <code class="text-primary">
+    &lt;form action=&quot;&lt;?= base_url('create<?= $functionName; ?>'); ?&gt;&quot; method=&quot;post&quot;&gt;
+        <?php foreach ($Fields as $field) : ?> 
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field)))); ?>&quot;&gt;<?= ucwords(strtolower(str_replace('_', ' ',  $field))); ?>&lt;/label&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field)))); ?>&quot; id=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field)))); ?>&quot; required&gt;
+        &lt;/div&gt;
+        <?php endforeach; ?> 
+    &lt;/form&gt;
+                        </code>
+                    </pre>
+                    <h5 class="fw-bold"> List</h5>
+                    <hr>
                     <pre>
                         <code class="text-primary">
     &lt;table class=&quot;table&quot;&gt;
         &lt;thead&gt;
-            &lt;th&gt;&lt;/th&gt;
+        <?php foreach ($Fields as $field) : ?>  
+            &lt;th&gt;<?= ucwords(strtolower(str_replace('_', ' ',  $field))); ?>&lt;/th&gt;
+            <?php endforeach; ?> 
         &lt;/thead&gt;
         &lt;tbody&gt;
             &lt;tr&gt;
-              &lt;td&gt;&lt;/td&gt;
+            <?php foreach ($Fields as $field) : ?>  
+                &lt;td&gt;&lt;?= $field['<?= $field; ?>'] ?&gt; &lt;/td&gt;
+            <?php endforeach; ?> 
             &lt;/tr&gt;
         &lt;/tbody&gt;
     &lt;/table&gt;
