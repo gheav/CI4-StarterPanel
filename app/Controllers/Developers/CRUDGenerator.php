@@ -19,7 +19,7 @@ class CRUDGenerator extends BaseController
 				$data = array_merge($this->data, [
 					'title'     => 'CRUD Generator',
 					'Tables'	=> $this->developerModel->getTableDatabase(),
-					'Fields'	=> $this->db->getFieldNames($table),
+					'Fields'	=> $this->db->getFieldData($table),
 					'tableName'	=> $table,
 					'menu'		=> $this->request->getGet('menu'),
 					'create' 	=> $this->request->getGet('create'),

@@ -122,7 +122,7 @@
     {
         $data = array_merge($this->data, [
             'title'     =&gt; <?= $title; ?>,
-            'Tables'    =&gt; $this-&gt;<?= $modelName; ?>Model->get<?= $functionName; ?>()
+            '<?= $functionName; ?>'    =&gt; $this-&gt;<?= $modelName; ?>Model->get<?= $functionName; ?>()
         ]);
         return view('<?= $menu; ?>', $data);
     }
@@ -200,21 +200,17 @@
                         <hr>
                         <pre>
                 <code class="text-primary">
-    public function getUser($userID = false)
-	{
-		if ($userID) {
-			return $this->db->table('users')
-				->select('*,users.id AS userID,user_role.id AS role_id')
-				->join('user_role', 'users.role = user_role.id')
-				->where(['users.id' => $userID])
-				->get()->getRowArray();
-		} else {
-			return $this->db->table('users')
-				->select('*,users.id AS userID,user_role.id AS role_id')
-				->join('user_role', 'users.role = user_role.id')
-				->get()->getResultArray();
-		}
-	}
+    public function get<?= $functionName ?>($<?= $functionName ?>ID = false)
+    {
+        if ($<?= $functionName ?>ID) {
+            return $this-&gt;db-&gt;table('<?= $tableName; ?>')
+            -&gt;where(['<?= $tableName; ?>.id' =&gt; $<?= $functionName ?>ID])
+            -&gt;get()-&gt;getRowArray();
+        } else {
+            return $this-&gt;db-&gt;table('<?= $tableName; ?>')
+            -&gt;get()-&gt;getResultArray();
+        }
+    }
                 </code>
                 </pre>
                         <hr>
@@ -224,16 +220,12 @@
                         <hr>
                         <pre>
                 <code class="text-primary">
-    public function createMenu($dataMenu)
-	{
-		return $this->db->table('user_menu')->insert([
-			'menu_category'	=> $dataMenu['inputMenuCategory'],
-			'title'			=> $dataMenu['inputMenuTitle'],
-			'url' 			=> $dataMenu['inputMenuURL'],
-			'icon' 			=> $dataMenu['inputMenuIcon'],
-			'parent' 		=> 0
-		]);
-	}
+    public function create<?= $functionName ?>($data<?= $functionName ?>)
+    {
+        return $this-&gt;db-&gt;table('<?= $tableName ?>')-&gt;insert([<?php foreach ($Fields as $field) : if (!$field->primary_key == 1) : ?><br>          '<?= $field->name; ?>'     	=&gt; $data<?= $functionName ?>['input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field->name)))); ?>'],<?php endif;
+                                                                                                                                                                                                                                                                                                                    endforeach; ?> 
+        ]);
+    }
                     </code>
                 </pre>
                         <hr>
@@ -243,12 +235,12 @@
                         <hr>
                         <pre>
                 <code class="text-primary">
-    return $this->db->table('users')->update([
-			'fullname'		=> $dataUser['inputFullname'],
-			'username' 		=> $dataUser['inputUsername'],
-			'password' 		=> $password,
-			'role' 			=> $dataUser['inputRole'],
-		], ['id' => $dataUser['userID']]);
+    public function update<?= $functionName ?>($data<?= $functionName ?>)
+    {
+        return $this-&gt;db-&gt;table('<?= $tableName ?>')-&gt;update([<?php foreach ($Fields as $field) : if (!$field->primary_key == 1) : ?><br>          '<?= $field->name; ?>'     	=&gt; $data<?= $functionName ?>['input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field->name)))); ?>'],<?php endif;
+                                                                                                                                                                                                                                                                                                                    endforeach; ?> 
+            ], ['id' => $data<?= $functionName ?>['input<?= $functionName ?>ID']]);
+    }
                 </code>
                 </pre>
                         <hr>
@@ -260,9 +252,9 @@
                         <pre>
                 <code class="text-primary">
 
-    public function deleteUser($userID)
+    public function delete<?= $functionName ?>($<?= $functionName ?>ID)
 	{
-		return $this->db->table('users')->delete(['id' => $userID]);
+		return $this->db->table('<?= $tableName ?>')->delete(['id' => $<?= $functionName ?>ID]);
 	}
 
                 </code>
@@ -274,12 +266,10 @@
                     <pre>
                         <code class="text-primary">
     &lt;form action=&quot;&lt;?= base_url('create<?= $functionName; ?>'); ?&gt;&quot; method=&quot;post&quot;&gt;
-        <?php foreach ($Fields as $field) : ?> 
-        &lt;div class=&quot;form-group&quot;&gt;
-            &lt;label for=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field)))); ?>&quot;&gt;<?= ucwords(strtolower(str_replace('_', ' ',  $field))); ?>&lt;/label&gt;
-            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field)))); ?>&quot; id=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field)))); ?>&quot; required&gt;
-        &lt;/div&gt;
-        <?php endforeach; ?> 
+        <?php foreach ($Fields as $field) : ?>&lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field->name)))); ?>&quot;&gt;<?= ucwords(strtolower(str_replace('_', ' ',  $field->name))); ?>&lt;/label&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field->name)))); ?>&quot; id=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field->name)))); ?>&quot; required&gt;
+        &lt;/div&gt; <?php endforeach; ?> 
     &lt;/form&gt;
                         </code>
                     </pre>
@@ -288,17 +278,12 @@
                     <pre>
                         <code class="text-primary">
     &lt;table class=&quot;table&quot;&gt;
-        &lt;thead&gt;
-        <?php foreach ($Fields as $field) : ?>  
-            &lt;th&gt;<?= ucwords(strtolower(str_replace('_', ' ',  $field))); ?>&lt;/th&gt;
-            <?php endforeach; ?> 
-        &lt;/thead&gt;
+        &lt;thead&gt; <br><?php foreach ($Fields as $field) : ?>           &lt;th&gt;<?= ucwords(strtolower(str_replace('_', ' ',  $field->name))); ?>&lt;/th&gt; <br><?php endforeach; ?>         &lt;/thead&gt;
         &lt;tbody&gt;
-            &lt;tr&gt;
-            <?php foreach ($Fields as $field) : ?>  
-                &lt;td&gt;&lt;?= $field['<?= $field; ?>'] ?&gt; &lt;/td&gt;
-            <?php endforeach; ?> 
+        &lt;?php foreach($<?= $functionName; ?> as <?= strtolower($functionName); ?> ): ?&gt;   
+            &lt;tr&gt; <?php foreach ($Fields as $field) : ?> <br>                &lt;td&gt;&lt;?= $<?= strtolower($functionName); ?>['<?= $field->name; ?>'] ?&gt; &lt;/td&gt; <?php endforeach; ?> 
             &lt;/tr&gt;
+        &lt;?php endforeach; ?&gt;
         &lt;/tbody&gt;
     &lt;/table&gt;
                         </code>
