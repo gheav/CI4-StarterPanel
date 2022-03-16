@@ -62,7 +62,7 @@ class MenuManagement extends BaseController
 
 	public function _createController()
 	{
-		$menuTitle		= $this->request->getPost('inputMenuURL');
+		$menuTitle		= ucwords($this->request->getPost('inputMenuURL'));
 		$controllerName = url_title(ucwords($menuTitle), '', false);
 		$viewName 		= url_title($menuTitle, '', true);
 		$controllerPath	= APPPATH . 'Controllers/' . $controllerName . ".php";
