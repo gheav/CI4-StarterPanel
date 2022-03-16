@@ -110,7 +110,15 @@
 										<label for="inputMenuIcon" class="form-label">Menu Icon <a href="https://feathericons.com/" target="_blank" rel="noopener noreferrer">(Lookup References)</a> </label>
 										<input type="text" class="form-control" id="inputMenuIcon" name="inputMenuIcon">
 									</div>
-									<div class="text-end">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="optionPage" id="optionPage1" value="0" required>
+										<label class="form-check-label" for="optionPage1">Create Blank Page</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="optionPage" id="optionPage2" value="1" required>
+										<label class="form-check-label" for="optionPage2">Create List and Form Pages</label>
+									</div>
+									<div class="text-end mt-3">
 										<button class="btn btn-primary ">Save Menu</button>
 									</div>
 								</form>

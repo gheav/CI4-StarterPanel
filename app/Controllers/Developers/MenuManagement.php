@@ -32,8 +32,15 @@ class MenuManagement extends BaseController
 
 	public function createMenu()
 	{
-		$createController 	= $this->_createController();
-		$createView			= $this->_createView();
+		$optionPage = $this->request->getPost('optionPage');
+		if ($optionPage == 1) {
+			$createController 	= $this->_createListFormController();
+			$createView			= $this->_createListPageView();
+			$createView			= $this->_createFormPageView();
+		} else {
+			$createController 	= $this->_createBlankPageController();
+			$createView			= $this->_createBlankPageView();
+		}
 		if ($createController && $createView) {
 			$createMenu = $this->menuModel->createMenu($this->request->getPost(null));
 			if ($createMenu) {
@@ -60,7 +67,7 @@ class MenuManagement extends BaseController
 		}
 	}
 
-	public function _createController()
+	private function _createBlankPageController()
 	{
 		$menuTitle		= ucwords($this->request->getPost('inputMenuURL'));
 		$controllerName = url_title(ucwords($menuTitle), '', false);
@@ -87,13 +94,117 @@ class MenuManagement extends BaseController
 			return false;
 		}
 	}
-	public function _createView()
+	private function _createBlankPageView()
 	{
 		$viewName 		= url_title($this->request->getPost('inputMenuURL'), '', true);
 		$viewPath		= APPPATH . 'Views/' . $viewName . ".php";
 		$viewContent 	= "<?= $|this->extend('layouts/main'); ?>
 		<?= $|this->section('content'); ?>
 		<h1 class=\"h3 mb-3\"><strong><?= $|title; ?></strong> Menu </h1>
+		<?= $|this->endSection(); ?>
+		";
+		$renderFile = str_replace("|", "", $viewContent);
+		if (file_put_contents($viewPath, $renderFile) !== false) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	private function _createListFormController()
+	{
+		$menuTitle		= ucwords($this->request->getPost('inputMenuTitle'));
+		$controllerName = url_title(ucwords($this->request->getPost('inputMenuURL')), '', false);
+		$listViewName 		= url_title($menuTitle, '', true) . 'List';
+		$formViewName 		= url_title($menuTitle, '', true) . 'Form';
+		$controllerPath	= APPPATH . 'Controllers/' . $controllerName . ".php";
+		$controllerContent = "<?php
+		namespace App\Controllers;
+		use App\Controllers\BaseController;
+		class $controllerName extends BaseController
+		{
+			public function index()
+			{
+				$|data = array_merge($|this->data, [
+					'title'         => '$menuTitle'
+				]);
+				return view('$listViewName', $|data);
+			}
+			public function form()
+			{
+				$|data = array_merge($|this->data, [
+					'title'         => '$menuTitle'
+				]);
+				return view('$formViewName', $|data);
+			}
+		}
+		";
+		$renderFile = str_replace("|", "", $controllerContent);
+		if (file_put_contents($controllerPath, $renderFile) !== false) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	private function _createListPageView()
+	{
+		$menuTitle		= ucwords($this->request->getPost('inputMenuTitle'));
+		$viewName 		= url_title($this->request->getPost('inputMenuURL'), '', true);
+		$controllerName = url_title(ucwords($this->request->getPost('inputMenuURL')), '', false);
+		$viewPath		= APPPATH . 'Views/' . $viewName . "List.php";
+		$viewContent 	= "<?= $|this->extend('layouts/main'); ?>
+		<?= $|this->section('content'); ?>
+		<h1 class=\"h3 mb-3\"><strong><?= $|title; ?></strong> List Menu </h1>
+		<div class=\"card\">
+            <div class=\"card-header\">
+                <h5 class=\"card-title mb-0\">	$menuTitle List <a href=\"<?= base_url('$controllerName/form'); ?>\" class=\"btn btn-primary btn-sm float-end\" >Create New $menuTitle</a></h5>
+            </div>
+            <div class=\"card-body\">
+                <div class=\"table-responsive\">
+                    <table class=\"table table-hover my-0\">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>       
+									  <button type=\"submit\" class=\"btn btn-outline-info btn-sm\">Update</button>
+									  <button type=\"submit\" class=\"btn btn-outline-danger btn-sm\">Delete</button>
+								</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+		<?= $|this->endSection(); ?>
+		";
+		$renderFile = str_replace("|", "", $viewContent);
+		if (file_put_contents($viewPath, $renderFile) !== false) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	private function _createFormPageView()
+	{
+		$menuTitle		= ucwords($this->request->getPost('inputMenuTitle'));
+		$viewName 		= url_title($this->request->getPost('inputMenuURL'), '', true);
+		$viewPath		= APPPATH . 'Views/' . $viewName . "Form.php";
+		$viewContent 	= "<?= $|this->extend('layouts/main'); ?>
+		<?= $|this->section('content'); ?>
+		<h1 class=\"h3 mb-3\"><strong><?= $|title; ?></strong> Form Menu </h1>
+		<div class=\"card\">
+            <div class=\"card-header\">
+                <h5 class=\"card-title mb-0\">	$menuTitle Form </h5>
+            </div>
+            <div class=\"card-body\">
+
+            </div>
+        </div>
 		<?= $|this->endSection(); ?>
 		";
 		$renderFile = str_replace("|", "", $viewContent);
