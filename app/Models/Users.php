@@ -44,22 +44,6 @@ class Users extends Model
 			->get()->getResultArray();
 	}
 
-	public function getMenuCategory()
-	{
-		return $this->db->table('user_menu_category')
-			->get()->getResultArray();
-	}
-	public function getMenu()
-	{
-		return $this->db->table('user_menu')
-			->get()->getResultArray();
-	}
-
-	public function getSubmenu()
-	{
-		return $this->db->table('user_submenu')
-			->get()->getResultArray();
-	}
 	public function getUserRole($role = false)
 	{
 		if ($role) {
@@ -72,47 +56,6 @@ class Users extends Model
 			->get()->getResultArray();
 	}
 
-	public function createMenuCategory($dataMenuCategory)
-	{
-		return $this->db->table('user_menu_category')->insert([
-			'menu_category'		=> $dataMenuCategory['inputMenuCategory']
-		]);
-	}
-	public function createMenu($dataMenu)
-	{
-		return $this->db->table('user_menu')->insert([
-			'menu_category'	=> $dataMenu['inputMenuCategory'],
-			'title'			=> $dataMenu['inputMenuTitle'],
-			'url' 			=> $dataMenu['inputMenuURL'],
-			'icon' 			=> $dataMenu['inputMenuIcon'],
-			'parent' 		=> 0
-		]);
-	}
-
-	public function createSubMenu($dataSubmenu)
-	{
-		$this->db->transBegin();
-		$this->db->table('user_submenu')->insert([
-			'menu'			=> $dataSubmenu['inputMenu'],
-			'title'			=> $dataSubmenu['inputSubmenuTitle'],
-			'url' 			=> $dataSubmenu['inputSubmenuURL']
-		]);
-		$this->db->table('user_menu')->update(['parent' => 1], ['id' => $dataSubmenu['inputMenu']]);
-		if ($this->db->transStatus() === FALSE) {
-			$this->db->transRollback();
-			return false;
-		} else {
-			$this->db->transCommit();
-			return true;
-		}
-	}
-
-	public function getMenuByUrl($menuUrl)
-	{
-		return $this->db->table('user_menu')
-			->where(['url' => $menuUrl])
-			->get()->getRowArray();
-	}
 	public function createUser($dataUser)
 	{
 		return $this->db->table('users')->insert([

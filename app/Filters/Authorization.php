@@ -6,6 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Users;
+use App\Models\MenuModel;
 
 class Authorization implements FilterInterface
 {
@@ -13,10 +14,11 @@ class Authorization implements FilterInterface
 	public function before(RequestInterface $request, $arguments = null)
 	{
 		$this->userModel  	= new Users();
+		$this->menuModel  	= new MenuModel();
 		$segment 			= $request->uri->getSegment(1);
 
 		if ($segment) :
-			$menu 		= $this->userModel->getMenuByUrl($segment);
+			$menu 		= $this->menuModel->getMenuByUrl($segment);
 			if (!$menu) :
 				//not found
 				return redirect()->to(base_url('/'));

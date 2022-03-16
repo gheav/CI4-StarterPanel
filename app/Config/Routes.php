@@ -45,15 +45,16 @@ $routes->get('users/userRoleAccess', 'Users::userRoleAccess');
 $routes->post('users/createRole', 'Users::createRole');
 $routes->post('users/updateRole', 'Users::updateRole');
 $routes->delete('users/deleteRole', 'Users::deleteRole');
-$routes->post('users/createMenuCategory', 'Users::createMenuCategory');
-$routes->post('users/createMenu', 'Users::createMenu');
-$routes->post('users/createSubMenu', 'Users::createSubMenu');
 $routes->post('users/createUser', 'Users::createUser');
 $routes->post('users/updateUser', 'Users::updateUser');
 $routes->delete('users/deleteUser', 'Users::deleteUser');
 $routes->post('users/changeMenuPermission', 'Users::changeMenuPermission');
 $routes->post('users/changeMenuCategoryPermission', 'Users::changeMenuCategoryPermission');
 $routes->post('users/changeSubMenuPermission', 'Users::changeSubMenuPermission');
+
+$routes->post('menuManagement/createMenuCategory', 'Developers/MenuManagement::createMenuCategory');
+$routes->post('menuManagement/createMenu', 'Developers/MenuManagement::createMenu');
+$routes->post('menuManagement/createSubMenu', 'Developers/MenuManagement::createSubMenu');
 
 //Developer Routes
 $routes->get('menuManagement', 'Developers/MenuManagement::index');

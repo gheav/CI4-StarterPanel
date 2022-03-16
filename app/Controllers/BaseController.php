@@ -7,6 +7,8 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use App\Models\Users;
+use App\Models\MenuModel;
+
 
 /**
  * Class BaseController
@@ -53,6 +55,7 @@ class BaseController extends Controller
 		$this->validation 	= \Config\Services::validation();
 		$this->encrypter 	= \Config\Services::encrypter();
 		$this->userModel  	= new Users();
+		$this->menuModel  	= new MenuModel();
 		$user 				= $this->userModel->getUser(username: session()->get('username'));
 		$segment 			= $this->request->uri->getSegment(1);
 		if ($segment) {
