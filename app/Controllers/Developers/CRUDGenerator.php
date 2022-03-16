@@ -3,13 +3,13 @@
 namespace App\Controllers\Developers;
 
 use App\Controllers\BaseController;
-use App\Models\Developers;
+use App\Models\DeveloperModel;
 
 class CRUDGenerator extends BaseController
 {
 	function __construct()
 	{
-		$this->developerModel  	= new Developers();
+		$this->developerModel  	= new DeveloperModel();
 	}
 	public function index()
 	{

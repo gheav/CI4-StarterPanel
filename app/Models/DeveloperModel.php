@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Developers extends Model
+class DeveloperModel extends Model
 {
     public function getTableDatabase()
     {

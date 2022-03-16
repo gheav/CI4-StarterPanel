@@ -5,7 +5,7 @@ namespace App\Filters;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\Users;
+use App\Models\UserModel;
 use App\Models\MenuModel;
 
 class Authorization implements FilterInterface
@@ -13,7 +13,7 @@ class Authorization implements FilterInterface
 
 	public function before(RequestInterface $request, $arguments = null)
 	{
-		$this->userModel  	= new Users();
+		$this->userModel  	= new UserModel();
 		$this->menuModel  	= new MenuModel();
 		$segment 			= $request->uri->getSegment(1);
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Users extends Model
+class UserModel extends Model
 {
 	public function getUser($username = false, $userID = false)
 	{
