@@ -270,6 +270,9 @@
             &lt;label for=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field->name)))); ?>&quot;&gt;<?= ucwords(strtolower(str_replace('_', ' ',  $field->name))); ?>&lt;/label&gt;
             &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field->name)))); ?>&quot; id=&quot;input<?= str_replace(' ', '', ucwords(strtolower(str_replace('_', ' ', $field->name)))); ?>&quot; required&gt;
         &lt;/div&gt; <?php endforeach; ?> 
+        &lt;div class=&quot;d-grid gap-2 mt-3&quot;&gt;
+                        &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;Save Data&lt;/button&gt;
+                    &lt;/div&gt;
     &lt;/form&gt;
                         </code>
                     </pre>
@@ -280,7 +283,7 @@
     &lt;table class=&quot;table&quot;&gt;
         &lt;thead&gt; <br><?php foreach ($Fields as $field) : ?>           &lt;th&gt;<?= ucwords(strtolower(str_replace('_', ' ',  $field->name))); ?>&lt;/th&gt; <br><?php endforeach; ?>         &lt;/thead&gt;
         &lt;tbody&gt;
-        &lt;?php foreach($<?= $functionName; ?> as <?= strtolower($functionName); ?> ): ?&gt;   
+        &lt;?php foreach($<?= $functionName; ?> as $<?= strtolower($functionName); ?> ): ?&gt;   
             &lt;tr&gt; <?php foreach ($Fields as $field) : ?> <br>                &lt;td&gt;&lt;?= $<?= strtolower($functionName); ?>['<?= $field->name; ?>'] ?&gt; &lt;/td&gt; <?php endforeach; ?> 
             &lt;/tr&gt;
         &lt;?php endforeach; ?&gt;
