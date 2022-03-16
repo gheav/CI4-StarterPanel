@@ -107,7 +107,7 @@
 										<input type="text" class="form-control" id="inputMenuURL" name="inputMenuURL">
 									</div>
 									<div class="mb-3">
-										<label for="inputMenuIcon" class="form-label">Menu Icon</label>
+										<label for="inputMenuIcon" class="form-label">Menu Icon <a href="https://feathericons.com/" target="_blank" rel="noopener noreferrer">(Lookup References)</a> </label>
 										<input type="text" class="form-control" id="inputMenuIcon" name="inputMenuIcon">
 									</div>
 									<div class="text-end">
