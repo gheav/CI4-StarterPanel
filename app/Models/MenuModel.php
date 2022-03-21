@@ -7,13 +7,30 @@ use CodeIgniter\Model;
 class MenuModel extends Model
 {
 
-    public function getMenuCategory()
+    public function getMenuCategory($menuCategoryID = false)
     {
+
+        if ($menuCategoryID) {
+            return $this->db->table('user_menu_category')->where(['id' => $menuCategoryID['id']])->get()->getRowArray();
+        }
         return $this->db->table('user_menu_category')
             ->get()->getResultArray();
     }
-    public function getMenu()
+    public function getMenu($menuID = false)
     {
+        if ($menuID) {
+            return $this->db->table('user_menu')
+                ->select(
+                    '*,
+                    user_menu_category.menu_category AS category,
+                    user_menu.menu_category AS menu_category_id, 
+                    user_menu.id AS menu_id
+                    '
+                )
+                ->join('user_menu_category', 'user_menu.menu_category = user_menu_category.id')
+                ->where(['id' => $menuID['menu_id']])
+                ->get()->getRowArray();
+        }
         return $this->db->table('user_menu')
             ->select(
                 '*,
@@ -48,10 +65,16 @@ class MenuModel extends Model
             'menu_category'        => $dataMenuCategory['inputMenuCategory']
         ]);
     }
+    public function updateMenuCategory($menuCategoryID)
+    {
+        return $this->db->table('user_menu_category')->update([
+            'menu_category'        => $menuCategoryID['inputMenuCategory']
+        ]);
+    }
     public function createMenu($dataMenu)
     {
         return $this->db->table('user_menu')->insert([
-            'menu_category'     => $dataMenu['inputMenuCategory'],
+            'menu_category'     => $dataMenu['inputMenuCategory2'],
             'title'             => $dataMenu['inputMenuTitle'],
             'url'               => $dataMenu['inputMenuURL'],
             'icon'              => $dataMenu['inputMenuIcon'],
@@ -63,7 +86,7 @@ class MenuModel extends Model
     {
         $this->db->transBegin();
         $this->db->table('user_submenu')->insert([
-            'menu'            => $dataSubmenu['inputMenu'],
+            'menu'            => $dataSubmenu['inputMenu1'],
             'title'           => $dataSubmenu['inputSubmenuTitle'],
             'url'             => $dataSubmenu['inputSubmenuURL']
         ]);

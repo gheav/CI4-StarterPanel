@@ -47,7 +47,10 @@
 								<form action="<?= base_url('menuManagement/createMenuCategory'); ?> " method="post">
 									<div class="mb-3">
 										<label for="inputMenuCategory" class="form-label">Add Menu Category</label>
-										<input type="text" class="form-control" id="inputMenuCategory" name="inputMenuCategory" placeholder="Menu Category Name">
+										<input type="text" class="form-control <?= ($validation->hasError('inputMenuCategory')) ? 'is-invalid' : ''; ?>" autofocus value="<?= old('inputMenuCategory'); ?>" id=" inputMenuCategory" name="inputMenuCategory" placeholder="Menu Category Name">
+										<div class="invalid-feedback">
+											<?= $validation->getError('inputMenuCategory'); ?>
+										</div>
 									</div>
 									<div class="text-end">
 										<button class="btn btn-primary ">Save Menu Category</button>
@@ -90,25 +93,37 @@
 								<hr>
 								<form action="<?= base_url('menuManagement/createMenu'); ?>" method="post">
 									<div class="mb-3">
-										<label for="inputMenuCategory" class="form-label">Menu Category</label>
-										<select name="inputMenuCategory" id="inputMenuCategory" class="form-control">
+										<label for="inputMenuCategory2" class="form-label">Menu Category</label>
+										<select name="inputMenuCategory2" id="inputMenuCategory2" class="form-control <?= ($validation->hasError('inputMenuCategory2')) ? 'is-invalid' : ''; ?>" autofocus value="<?= old('inputMenuCategory2	'); ?>">
 											<option value=""> -- Choose Menu Category --</option>
 											<?php foreach ($MenuCategories as $menuCategory) : ?>
 												<option value="<?= $menuCategory['id']; ?>"><?= $menuCategory['menu_category']; ?></option>
 											<?php endforeach; ?>
 										</select>
+										<div class="invalid-feedback">
+											<?= $validation->getError('inputMenuCategory2'); ?>
+										</div>
 									</div>
 									<div class="mb-3">
 										<label for="inputMenuTitle" class="form-label">Menu Title</label>
-										<input type="text" class="form-control" id="inputMenuTitle" name="inputMenuTitle">
+										<input type="text" class="form-control <?= ($validation->hasError('inputMenuTitle')) ? 'is-invalid' : ''; ?>" autofocus value="<?= old('inputMenuTitle'); ?>" id="inputMenuTitle" name="inputMenuTitle">
+										<div class="invalid-feedback">
+											<?= $validation->getError('inputMenuTitle'); ?>
+										</div>
 									</div>
 									<div class="mb-3">
 										<label for="inputMenuURL" class="form-label">Menu URL</label>
-										<input type="text" class="form-control" id="inputMenuURL" name="inputMenuURL">
+										<input type="text" class="form-control <?= ($validation->hasError('inputMenuURL')) ? 'is-invalid' : ''; ?>" autofocus value="<?= old('inputMenuURL'); ?>" id="inputMenuURL" name="inputMenuURL">
+										<div class="invalid-feedback">
+											<?= $validation->getError('inputMenuURL'); ?>
+										</div>
 									</div>
 									<div class="mb-3">
 										<label for="inputMenuIcon" class="form-label">Menu Icon <a href="https://feathericons.com/" target="_blank" rel="noopener noreferrer">(Lookup References)</a> </label>
-										<input type="text" class="form-control" id="inputMenuIcon" name="inputMenuIcon">
+										<input type="text" class="form-control <?= ($validation->hasError('inputMenuIcon')) ? 'is-invalid' : ''; ?>" autofocus value="<?= old('inputMenuIcon'); ?>" id="inputMenuIcon" name="inputMenuIcon">
+										<div class="invalid-feedback">
+											<?= $validation->getError('inputMenuIcon'); ?>
+										</div>
 									</div>
 									<div class="form-check form-check-inline">
 										<input class="form-check-input" type="radio" name="optionPage" id="optionPage1" value="0" required>
@@ -159,21 +174,30 @@
 								<hr>
 								<form action="<?= base_url('menuManagement/createSubMenu'); ?>" method="post">
 									<div class="mb-3">
-										<label for="inputMenu" class="form-label">Menu Parent</label>
-										<select name="inputMenu" id="inputMenu" class="form-control">
+										<label for="inputMenu1" class="form-label">Menu Parent</label>
+										<select name="inputMenu1" id="inputMenu1" class="form-control <?= ($validation->hasError('inputMenu1')) ? 'is-invalid' : ''; ?>" autofocus value="<?= old('inputMenu1'); ?>">
 											<option value=""> -- Choose Menu Parent --</option>
 											<?php foreach ($Menus as $menu) : ?>
 												<option value="<?= $menu['id']; ?>"><?= $menu['title']; ?></option>
 											<?php endforeach; ?>
 										</select>
+										<div class="invalid-feedback">
+											<?= $validation->getError('inputMenu1'); ?>
+										</div>
 									</div>
 									<div class="mb-3">
 										<label for="inputSubmenuTitle" class="form-label">Submenu Title</label>
-										<input type="text" class="form-control" id="inputSubmenuTitle" name="inputSubmenuTitle">
+										<input type="text" class="form-control <?= ($validation->hasError('inputSubmenuTitle')) ? 'is-invalid' : ''; ?>" autofocus value="<?= old('inputSubmenuTitle'); ?>" id="inputSubmenuTitle" name="inputSubmenuTitle">
+										<div class="invalid-feedback">
+											<?= $validation->getError('inputSubmenuTitle'); ?>
+										</div>
 									</div>
 									<div class="mb-3">
 										<label for="inputSubmenuURL" class="form-label">Submenu URL</label>
-										<input type="text" class="form-control" id="inputSubmenuURL" name="inputSubmenuURL">
+										<input type="text" class="form-control <?= ($validation->hasError('inputSubmenuURL')) ? 'is-invalid' : ''; ?>" autofocus value="<?= old('inputSubmenuURL'); ?>"" id=" inputSubmenuURL" name="inputSubmenuURL">
+										<div class="invalid-feedback">
+											<?= $validation->getError('inputSubmenuURL'); ?>
+										</div>
 									</div>
 									<div class="text-end">
 										<button class="btn btn-primary">Save Submenu</button>

@@ -14,12 +14,24 @@ class MenuManagement extends BaseController
 			'MenuCategories'	=> $this->menuModel->getMenuCategory(),
 			'Menus'				=> $this->menuModel->getMenu(),
 			'Submenus'			=> $this->menuModel->getSubmenu(),
+			'validation'		=> $this->validation
 		]);
 		return view('developers/menuManagement', $data);
 	}
 
 	public function createMenuCategory()
 	{
+		if (!$this->validate([
+			'inputMenuCategory' => [
+				'rules'     => 'required|is_unique[user_menu_category.menu_category]',
+				'errors'    => [
+					'required'  => 'Menu Category must be required.',
+					'is_unique' => 'Menu Category cannot be same.'
+				]
+			]
+		])) {
+			return redirect()->to('menuManagement')->withInput();
+		}
 		$createMenuCategory = $this->menuModel->createMenuCategory($this->request->getPost(null));
 		if ($createMenuCategory) {
 			session()->setFlashdata('notif_success', '<b>Successfully create menu category</b>');
@@ -29,9 +41,61 @@ class MenuManagement extends BaseController
 			return redirect()->to(base_url('menuManagement'));
 		}
 	}
+	public function updateMenuCategory()
+	{
+		if (!$this->validate([
+			'inputMenuCategory' => [
+				'rules'     => 'required|is_unique[user_menu_category.menu_category]',
+				'errors'    => [
+					'required'  => 'Menu Category must be required.',
+					'is_unique' => 'Menu Category cannot be same'
+				]
+			]
+		])) {
+			return redirect()->to('menuManagement')->withInput();
+		}
+		$updateMenuCategory = $this->menuModel->updateMenuCategory($this->request->getPost(null));
+		if ($updateMenuCategory) {
+			session()->setFlashdata('notif_success', '<b>Successfully update Menu Category </b> ');
+			return redirect()->to(base_url('menuManagement'));
+		} else {
+			session()->setFlashdata('notif_error', '<b>Failed to update Menu Category </b> ');
+			return redirect()->to(base_url('menuManagement'));
+		}
+	}
 
 	public function createMenu()
 	{
+		if (!$this->validate([
+			'inputMenuCategory2' => [
+				'rules'     => 'required',
+				'errors'    => [
+					'required'  => 'Menu Category must be required.'
+				]
+			],
+			'inputMenuTitle' => [
+				'rules'     => 'required|is_unique[user_menu.title]',
+				'errors'    => [
+					'required'  => 'Menu Title must be required.',
+					'is_unique' => 'Menu Title cannot be same'
+				]
+			],
+			'inputMenuURL' => [
+				'rules'     => 'required|is_unique[user_menu_category.url]',
+				'errors'    => [
+					'required'  => 'Menu Url must be required.',
+					'is_unique' => 'Menu Url cannot be same'
+				]
+			],
+			'inputMenuIcon' => [
+				'rules'     => 'required',
+				'errors'    => [
+					'required'  => 'Menu Icon must be required.'
+				]
+			]
+		])) {
+			return redirect()->to('menuManagement')->withInput();
+		}
 		$optionPage = $this->request->getPost('optionPage');
 		if ($optionPage == 1) {
 			$createController 	= $this->_createListFormController();
@@ -57,6 +121,30 @@ class MenuManagement extends BaseController
 	}
 	public function createSubMenu()
 	{
+		if (!$this->validate([
+			'inputMenu1' => [
+				'rules'     => 'required',
+				'errors'    => [
+					'required'  => 'Menu must be required.'
+				]
+			],
+			'inputSubmenuTitle' => [
+				'rules'     => 'required|is_unique[user_submenu.title]',
+				'errors'    => [
+					'required'  => 'Submenu Title must be required.',
+					'is_unique' => 'Submenu Title cannot be same'
+				]
+			],
+			'inputSubmenuURL' => [
+				'rules'     => 'required|is_unique[user_submenu_category.url]',
+				'errors'    => [
+					'required'  => 'Submenu Url must be required.',
+					'is_unique' => 'Submenu Url cannot be same'
+				]
+			],
+		])) {
+			return redirect()->to('menuManagement')->withInput();
+		}
 		$createSubMenu = $this->menuModel->createSubMenu($this->request->getPost(null));
 		if ($createSubMenu) {
 			session()->setFlashdata('notif_success', '<b>Successfully create submenu </b> ');
