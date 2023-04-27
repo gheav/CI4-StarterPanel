@@ -81,7 +81,7 @@ class MenuManagement extends BaseController
 				]
 			],
 			'inputMenuURL' => [
-				'rules'     => 'required|is_unique[user_menu_category.url]',
+				'rules'     => 'required|is_unique[user_menu.url]',
 				'errors'    => [
 					'required'  => 'Menu Url must be required.',
 					'is_unique' => 'Menu Url cannot be same'
