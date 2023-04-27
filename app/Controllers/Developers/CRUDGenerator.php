@@ -7,6 +7,7 @@ use App\Models\DeveloperModel;
 
 class CRUDGenerator extends BaseController
 {
+	protected $developerModel;
 	function __construct()
 	{
 		$this->developerModel  	= new DeveloperModel();

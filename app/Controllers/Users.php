@@ -37,7 +37,7 @@ class Users extends BaseController
 	}
 	public function createRole()
 	{
-		$createRole = $this->userModel->createRole($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		$createRole = $this->userModel->createRole($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		if ($createRole) {
 			session()->setFlashdata('notif_success', '<b>Successfully added role data</b> ');
 			return redirect()->to(base_url('users'));
@@ -48,7 +48,7 @@ class Users extends BaseController
 	}
 	public function updateRole()
 	{
-		$updateRole = $this->userModel->updateRole($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		$updateRole = $this->userModel->updateRole($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		if ($updateRole) {
 			session()->setFlashdata('notif_success', '<b>Successfully update user data</b> ');
 			return redirect()->to(base_url('users'));
@@ -77,7 +77,7 @@ class Users extends BaseController
 			session()->setFlashdata('notif_error', '<b>Failed to add new user</b> The user already exists! ');
 			return redirect()->to(base_url('users'));
 		}
-		$createUser = $this->userModel->createUser($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		$createUser = $this->userModel->createUser($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		if ($createUser) {
 			session()->setFlashdata('notif_success', '<b>Successfully added new user</b> ');
 			return redirect()->to(base_url('users'));
@@ -88,7 +88,7 @@ class Users extends BaseController
 	}
 	public function updateUser()
 	{
-		$updateUser = $this->userModel->updateUser($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		$updateUser = $this->userModel->updateUser($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		if ($updateUser) {
 			session()->setFlashdata('notif_success', '<b>Successfully update user data</b> ');
 			return redirect()->to(base_url('users'));
@@ -114,31 +114,31 @@ class Users extends BaseController
 
 	public function changeMenuCategoryPermission()
 	{
-		$userAccess = $this->userModel->checkUserMenuCategoryAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		$userAccess = $this->userModel->checkUserMenuCategoryAccess($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		if ($userAccess > 0) {
-			$this->userModel->deleteMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->deleteMenuCategoryPermission($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		} else {
-			$this->userModel->insertMenuCategoryPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->insertMenuCategoryPermission($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		}
 	}
 
 	public function changeMenuPermission()
 	{
-		$userAccess = $this->userModel->checkUserAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		$userAccess = $this->userModel->checkUserAccess($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		if ($userAccess > 0) {
-			$this->userModel->deleteMenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->deleteMenuPermission($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		} else {
-			$this->userModel->insertMenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->insertMenuPermission($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		}
 	}
 
 	public function changeSubMenuPermission()
 	{
-		$userAccess = $this->userModel->checkUserSubmenuAccess($this->request->getPost(null, FILTER_SANITIZE_STRING));
+		$userAccess = $this->userModel->checkUserSubmenuAccess($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		if ($userAccess > 0) {
-			$this->userModel->deleteSubmenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->deleteSubmenuPermission($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		} else {
-			$this->userModel->insertSubmenuPermission($this->request->getPost(null, FILTER_SANITIZE_STRING));
+			$this->userModel->insertSubmenuPermission($this->request->getPost(null, FILTER_UNSAFE_RAW));
 		}
 	}
 }

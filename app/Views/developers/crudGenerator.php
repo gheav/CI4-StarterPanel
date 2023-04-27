@@ -137,7 +137,7 @@
                 <code class="text-primary">
     public function create<?= $functionName; ?>()
     {
-        $create<?= $functionName; ?> = $this-&gt;<?= $modelName; ?>Model-&gt;create<?= $functionName; ?>($this->request->getPost(null, FILTER_SANITIZE_STRING));
+        $create<?= $functionName; ?> = $this-&gt;<?= $modelName; ?>Model-&gt;create<?= $functionName; ?>($this->request->getPost(null, FILTER_UNSAFE_RAW));
         if ($create<?= $functionName; ?>) {
             session()-&gt;setFlashdata('notif_success', '&lt;b&gt;Successfully added new <?= ucwords(strtolower(str_replace('_', ' ', $tableName))); ?>&lt;/b&gt;');
             return redirect()-&gt;to(base_url('<?= $menu; ?>'));
@@ -157,7 +157,7 @@
                 <code class="text-primary">
         public function update<?= $functionName; ?>()
         {
-            $update<?= $functionName; ?> = $this-&gt;<?= $modelName; ?>Model-&gt;update<?= $functionName; ?>($this-&gt;request-&gt;getPost(null, FILTER_SANITIZE_STRING));
+            $update<?= $functionName; ?> = $this-&gt;<?= $modelName; ?>Model-&gt;update<?= $functionName; ?>($this-&gt;request-&gt;getPost(null, FILTER_UNSAFE_RAW));
             if ($update<?= $functionName; ?>) {
                 session()-&gt;setFlashdata('notif_success', '&lt;b&gt;Successfully update <?= ucwords(strtolower(str_replace('_', ' ', $tableName))); ?>&lt;/b&gt;');
                 return redirect()-&gt;to(base_url('<?= $menu; ?>'));

@@ -10,7 +10,8 @@ use App\Models\MenuModel;
 
 class Authorization implements FilterInterface
 {
-
+	protected $userModel;
+	protected $menuModel;
 	public function before(RequestInterface $request, $arguments = null)
 	{
 		$this->userModel  	= new UserModel();

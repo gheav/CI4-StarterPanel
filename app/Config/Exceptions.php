@@ -9,6 +9,10 @@ use CodeIgniter\Config\BaseConfig;
  */
 class Exceptions extends BaseConfig
 {
+	public $sensitiveDataInTrace;
+	public $logDeprecations;
+	public $deprecationLogLevel;
+
 	/**
 	 * --------------------------------------------------------------------------
 	 * LOG EXCEPTIONS?

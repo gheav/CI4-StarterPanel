@@ -18,8 +18,8 @@ class Welcome extends BaseController
 		if (!$this->validate(['inputEmail'  => 'required'])) {
 			return view('common/login');
 		} else {
-			$inputEmail 		= htmlspecialchars($this->request->getVar('inputEmail', FILTER_SANITIZE_STRING));
-			$inputPassword 		= htmlspecialchars($this->request->getVar('inputPassword', FILTER_SANITIZE_STRING));
+			$inputEmail 		= htmlspecialchars($this->request->getVar('inputEmail', FILTER_UNSAFE_RAW));
+			$inputPassword 		= htmlspecialchars($this->request->getVar('inputPassword', FILTER_UNSAFE_RAW));
 			$user 				= $this->userModel->getUser(username: $inputEmail);
 			if ($user) {
 				$password		= $user['password'];
@@ -72,9 +72,9 @@ class Welcome extends BaseController
 			session()->setFlashdata('notif_error', $this->validation->getError('inputPassword2') . ' ' . $this->validation->getError('inputEmail'));
 			return view('common/register', $data);
 		} else {
-			$inputFullname 		= htmlspecialchars($this->request->getVar('inputFullname', FILTER_SANITIZE_STRING));
-			$inputEmail 		= htmlspecialchars($this->request->getVar('inputEmail', FILTER_SANITIZE_STRING));
-			$inputPassword 		= htmlspecialchars($this->request->getVar('inputPassword', FILTER_SANITIZE_STRING));
+			$inputFullname 		= htmlspecialchars($this->request->getVar('inputFullname', FILTER_UNSAFE_RAW));
+			$inputEmail 		= htmlspecialchars($this->request->getVar('inputEmail', FILTER_UNSAFE_RAW));
+			$inputPassword 		= htmlspecialchars($this->request->getVar('inputPassword', FILTER_UNSAFE_RAW));
 			$dataUser			= [
 				'inputFullname' => $inputFullname,
 				'inputUsername' => $inputEmail,

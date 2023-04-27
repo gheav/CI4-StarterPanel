@@ -42,6 +42,12 @@ class BaseController extends Controller
 
 	protected $data 	= [];
 	protected $userModel;
+	protected $session;
+	protected $segment;
+	protected $db;
+	protected $validation;
+	protected $encrypter;
+	protected $menuModel;
 	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		// Do Not Edit This Line
